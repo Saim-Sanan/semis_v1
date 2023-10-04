@@ -1,10 +1,10 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:semis/constants/animated_loader.dart';
 
 import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/attendance/controllers/attendance_controller.dart';
-
-import 'package:table_calendar/table_calendar.dart';
 
 class AttendanceScreen extends StatefulWidget {
   const AttendanceScreen({super.key});
@@ -20,7 +20,7 @@ class _AttendanceState extends State<AttendanceScreen> {
   @override
   void initState() {
     super.initState();
-    _attendanceController.fetchData();
+    _attendanceController.fetchAttendanceData();
   }
 
   @override
@@ -50,135 +50,143 @@ class _AttendanceState extends State<AttendanceScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: TableCalendar(
-              headerStyle: const HeaderStyle(
-                formatButtonVisible: false,
-                titleCentered: true,
-              ),
-              focusedDay: today,
-              firstDay: DateTime.utc(2000, 01, 01),
-              lastDay: DateTime.utc(2030, 01, 01),
-            ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 5,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 1,
-                color: Pallete.blueColor.withAlpha(100),
-              ),
-            ),
-            child: ListTile(
-              tileColor: Pallete.blueColor.withAlpha(20),
-              trailing: const Text(
-                "30",
-                style: TextStyle(
-                  color: Pallete.blueColor,
-                  fontSize: 20,
-                  letterSpacing: 2,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              title: const Text(
-                'Total Classes',
-                style: TextStyle(
-                  color: Pallete.blueColor,
-                  fontSize: 20,
-                  letterSpacing: 2,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 5,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 1,
-                color: Pallete.blueColor.withAlpha(100),
-              ),
-            ),
-            child: ListTile(
-              tileColor: Pallete.blueColor.withAlpha(20),
-              trailing: const Text(
-                "10",
-                style: TextStyle(
-                  color: Pallete.blueColor,
-                  fontSize: 20,
-                  letterSpacing: 2,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              title: const Text(
-                'Absents',
-                style: TextStyle(
-                  color: Pallete.blueColor,
-                  fontSize: 20,
-                  letterSpacing: 2,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 5,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 1,
-                color: Pallete.blueColor.withAlpha(100),
-              ),
-            ),
-            child: ListTile(
-              tileColor: Pallete.blueColor.withAlpha(20),
-              trailing: const Text(
-                "3",
-                style: TextStyle(
-                  color: Pallete.blueColor,
-                  fontSize: 20,
-                  letterSpacing: 2,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              title: const Text(
-                'Leaves',
-                style: TextStyle(
-                  color: Pallete.blueColor,
-                  fontSize: 20,
-                  letterSpacing: 8,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ),
-        ],
+      body: Obx(
+        () {
+          return _attendanceController.isLoading.value
+              ? const AnimatedLoader2()
+              : Column(
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      child: CalendarDatePicker2(
+                        displayedMonthDate: today,
+                        config: CalendarDatePicker2Config(
+                          firstDayOfWeek: DateTime.monday,
+                          currentDate: today,
+                          calendarType: CalendarDatePicker2Type.multi,
+                          selectedDayHighlightColor: Colors.green,
+                        ),
+                        value:
+                            _attendanceController.attendanceData.keys.toList(),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          width: 1,
+                          color: Pallete.blueColor.withAlpha(100),
+                        ),
+                      ),
+                      child: ListTile(
+                        tileColor: Pallete.blueColor.withAlpha(20),
+                        trailing: const Text(
+                          "30",
+                          style: TextStyle(
+                            color: Pallete.blueColor,
+                            fontSize: 20,
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        title: const Text(
+                          'Total Classes',
+                          style: TextStyle(
+                            color: Pallete.blueColor,
+                            fontSize: 20,
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          width: 1,
+                          color: Pallete.blueColor.withAlpha(100),
+                        ),
+                      ),
+                      child: ListTile(
+                        tileColor: Pallete.blueColor.withAlpha(20),
+                        trailing: const Text(
+                          "10",
+                          style: TextStyle(
+                            color: Pallete.blueColor,
+                            fontSize: 20,
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        title: const Text(
+                          'Absents',
+                          style: TextStyle(
+                            color: Pallete.blueColor,
+                            fontSize: 20,
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          width: 1,
+                          color: Pallete.blueColor.withAlpha(100),
+                        ),
+                      ),
+                      child: ListTile(
+                        tileColor: Pallete.blueColor.withAlpha(20),
+                        trailing: const Text(
+                          "3",
+                          style: TextStyle(
+                            color: Pallete.blueColor,
+                            fontSize: 20,
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        title: const Text(
+                          'Leaves',
+                          style: TextStyle(
+                            color: Pallete.blueColor,
+                            fontSize: 20,
+                            letterSpacing: 8,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+        },
       ),
     );
   }

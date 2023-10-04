@@ -6,6 +6,7 @@ import 'package:semis/features/auth/controllers/login_controller.dart';
 import 'package:semis/features/school/controllers/school_controller.dart';
 import 'package:semis/models/school_list.dart';
 import 'package:semis/features/school/screens/school_dashboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectSchool extends StatefulWidget {
   const SelectSchool({super.key});
@@ -207,6 +208,8 @@ class _SelectSchoolState extends State<SelectSchool> {
             // Check if there are users associated with the CNIC
             if (children.childCount > 0) {
               // If there are users, navigate to a screen where you can display them
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.setString('schoolUrl', school.appApi);
               Get.to(
                 () => const SchoolDashboard(),
                 arguments: {

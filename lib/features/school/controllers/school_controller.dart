@@ -20,8 +20,6 @@ class SchoolController extends GetxController {
       if (loginResponse.statusCode == 200) {
         final bearerToken = loginResponse.body;
 
-        _saveToken(bearerToken);
-
         var headers = {
           'Authorization': 'Bearer $bearerToken',
         };
@@ -56,10 +54,5 @@ class SchoolController extends GetxController {
       Get.snackbar("Error", e.toString());
       return null;
     }
-  }
-
-  void _saveToken(String token) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
   }
 }

@@ -74,6 +74,7 @@ class _SchoolDashboardState extends State<SchoolDashboard> {
             onPressed: () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.remove('token');
+              await prefs.remove('schoolUrl');
               Get.back();
             },
           )
@@ -123,12 +124,15 @@ class _SchoolDashboardState extends State<SchoolDashboard> {
           const SizedBox(
             height: 50,
           ),
-          const Text(
-            'Children',
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              color: Pallete.blueColor,
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Text(
+              'Children',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Pallete.blueColor,
+              ),
             ),
           ),
           const SizedBox(
@@ -167,12 +171,13 @@ class _SchoolDashboardState extends State<SchoolDashboard> {
                           radius: 30,
                         ),
                         const SizedBox(
-                          height: 5,
+                          height: 10,
                         ),
                         Text(
-                          '${children.children[index].fullName}',
+                          children.children[index].fullName,
                           style: const TextStyle(
                             fontSize: 15,
+                            letterSpacing: 1,
                             fontWeight: FontWeight.w600,
                             color: Pallete.blueColor,
                           ),
@@ -181,9 +186,9 @@ class _SchoolDashboardState extends State<SchoolDashboard> {
                           height: 5,
                         ),
                         Text(
-                          '${children.children[index].dob}',
+                          children.children[index].className,
                           style: const TextStyle(
-                            fontSize: 10,
+                            fontSize: 12,
                             fontWeight: FontWeight.w400,
                             color: Pallete.blueColor,
                           ),

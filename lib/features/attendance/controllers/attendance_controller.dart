@@ -1,38 +1,41 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class AttendanceController extends GetxController {
   RxBool isLoading = false.obs;
-  final apiUrl = 'https://fga.bsoft.pk/api/std_attendance?stdID=1&classcode=5';
-  RxList<Map<String, dynamic>> attendanceData = <Map<String, dynamic>>[].obs;
+  RxMap<DateTime, String> attendanceData = RxMap<DateTime, String>();
 
-  Future<void> fetchData() async {
+  Future<void> fetchAttendanceData() async {
+    isLoading.value = true;
+
     try {
-      // Fetch data from the API
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
-      var headers = {
-        'Authorization': 'Bearer $token',
-      };
-      final response = await http.get(Uri.parse(apiUrl), headers: headers);
+      final url = Uri.parse(
+          'https://fga.bsoft.pk/api/std_attendance?stdID=1&classcode=5');
+      final response = await http.get(url);
 
       if (response.statusCode == 200) {
-        // Parse the response data as a list of maps
-        final List<dynamic> data = json.decode(response.body);
-        if (data.isNotEmpty && data[0] is List<dynamic>) {
-          attendanceData.value = data[0].cast<Map<String, dynamic>>();
+        final apiResponse = json.decode(response.body) as List<dynamic>;
+
+        Map<DateTime, String> resultMap = {};
+
+        for (var map in apiResponse) {
+          if (map is Map<String, dynamic>) {
+            map.forEach((key, value) {
+              DateTime? date = DateTime.tryParse(key);
+              if (date != null) {
+                resultMap[date] = value.toString();
+              }
+            });
+          }
         }
+
+        attendanceData.assignAll(resultMap);
       } else {
-        // Handle error here if needed
-        Get.snackbar(
-            'Error1', 'Failed to fetch data: ${response.reasonPhrase}');
+        throw Exception('Failed to fetch data from the API');
       }
-    } catch (e) {
-      // Handle exceptions here if needed
-      Get.snackbar('error2', 'Error: $e');
+    } finally {
+      isLoading.value = false;
     }
   }
 }
