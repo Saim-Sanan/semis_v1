@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:semis/models/child_model.dart';
 import 'package:semis/models/child_list.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SchoolController extends GetxController {
   RxBool isLoading = false.obs;

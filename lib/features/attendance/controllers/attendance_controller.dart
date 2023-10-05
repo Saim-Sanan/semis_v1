@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class AttendanceController extends GetxController {
   RxBool isLoading = false.obs;
   RxMap<DateTime, String> attendanceData = RxMap<DateTime, String>();
@@ -10,25 +12,25 @@ class AttendanceController extends GetxController {
     isLoading.value = true;
 
     try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final stdID = prefs.getString('stdID');
+      final classCode = prefs.getString('classCode');
+      final schoolUrl = prefs.getString('schoolUrl');
       final url = Uri.parse(
-          'https://fga.bsoft.pk/api/std_attendance?stdID=1&classcode=5');
+          '${schoolUrl}std_attendance?stdID=$stdID&classcode=$classCode');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
-        final apiResponse = json.decode(response.body) as List<dynamic>;
+        final apiResponse = json.decode(response.body) as Map<String, dynamic>;
 
         Map<DateTime, String> resultMap = {};
 
-        for (var map in apiResponse) {
-          if (map is Map<String, dynamic>) {
-            map.forEach((key, value) {
-              DateTime? date = DateTime.tryParse(key);
-              if (date != null) {
-                resultMap[date] = value.toString();
-              }
-            });
+        apiResponse.forEach((key, value) {
+          DateTime? date = DateTime.tryParse(key);
+          if (date != null) {
+            resultMap[date] = value.toString();
           }
-        }
+        });
 
         attendanceData.assignAll(resultMap);
       } else {

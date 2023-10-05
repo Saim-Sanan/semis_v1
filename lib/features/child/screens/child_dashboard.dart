@@ -5,6 +5,7 @@ import 'package:semis/features/child/screens/child_home.dart';
 import 'package:semis/features/child/screens/child_profile.dart';
 import 'package:semis/features/child/screens/child_settings.dart';
 import 'package:semis/models/child_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChildDashboard extends StatefulWidget {
   const ChildDashboard({Key? key}) : super(key: key);
@@ -71,7 +72,10 @@ class _SchoolDashboardState extends State<ChildDashboard> {
         actions: [
           IconButton(
             icon: const Icon(Icons.child_care),
-            onPressed: () {
+            onPressed: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.remove('stdID');
+              prefs.remove("classCode");
               Get.back();
             },
           )

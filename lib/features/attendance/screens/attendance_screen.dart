@@ -67,7 +67,7 @@ class _AttendanceState extends State<AttendanceScreen> {
                           firstDayOfWeek: DateTime.monday,
                           currentDate: today,
                           calendarType: CalendarDatePicker2Type.multi,
-                          selectedDayHighlightColor: Colors.green,
+                          selectedDayHighlightColor: Colors.red,
                         ),
                         value:
                             _attendanceController.attendanceData.keys.toList(),

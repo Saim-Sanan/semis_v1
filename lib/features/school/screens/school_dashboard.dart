@@ -150,7 +150,13 @@ class _SchoolDashboardState extends State<SchoolDashboard> {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.setString(
+                        'stdID', children.children[index].stdId);
+                    await prefs.setString(
+                        'classCode', children.children[index].classCode);
                     Get.to(() => const ChildDashboard(), arguments: {
                       'child': children.children[index],
                     });

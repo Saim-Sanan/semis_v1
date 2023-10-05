@@ -15,6 +15,7 @@ class Child {
   dynamic preAddress;
   dynamic smobile;
   DateTime admDate;
+  String classCode;
   String className;
   String sectionName;
   dynamic picPath;
@@ -29,6 +30,7 @@ class Child {
     required this.preAddress,
     required this.smobile,
     required this.admDate,
+    required this.classCode,
     required this.className,
     required this.sectionName,
     required this.picPath,
@@ -44,6 +46,7 @@ class Child {
         preAddress: json["PreAddress"],
         smobile: json["Smobile"],
         admDate: DateTime.parse(json["AdmDate"]),
+        classCode: json["ClassCode"],
         className: json["ClassName"],
         sectionName: json["SectionName"],
         picPath: json["PicPath"],
@@ -60,6 +63,7 @@ class Child {
         "Smobile": smobile,
         "AdmDate":
             "${admDate.year.toString().padLeft(4, '0')}-${admDate.month.toString().padLeft(2, '0')}-${admDate.day.toString().padLeft(2, '0')}",
+        "ClassCode": classCode,
         "ClassName": className,
         "SectionName": sectionName,
         "PicPath": picPath,
