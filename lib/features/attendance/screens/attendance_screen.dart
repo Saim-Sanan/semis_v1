@@ -52,6 +52,12 @@ class _AttendanceState extends State<AttendanceScreen> {
       ),
       body: Obx(
         () {
+          final absents = _attendanceController.attendanceData.values
+              .where((value) => value == "A")
+              .length;
+          final leaves = _attendanceController.attendanceData.values
+              .where((value) => value == "L")
+              .length;
           return _attendanceController.isLoading.value
               ? const AnimatedLoader2()
               : Column(
@@ -67,7 +73,7 @@ class _AttendanceState extends State<AttendanceScreen> {
                           firstDayOfWeek: DateTime.monday,
                           currentDate: today,
                           calendarType: CalendarDatePicker2Type.multi,
-                          selectedDayHighlightColor: Colors.red,
+                          selectedDayHighlightColor: Pallete.blueColor,
                         ),
                         value:
                             _attendanceController.attendanceData.keys.toList(),
@@ -76,42 +82,39 @@ class _AttendanceState extends State<AttendanceScreen> {
                     const SizedBox(
                       height: 50,
                     ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          width: 1,
-                          color: Pallete.blueColor.withAlpha(100),
-                        ),
-                      ),
-                      child: ListTile(
-                        tileColor: Pallete.blueColor.withAlpha(20),
-                        trailing: const Text(
-                          "30",
-                          style: TextStyle(
-                            color: Pallete.blueColor,
-                            fontSize: 20,
-                            letterSpacing: 2,
-                            fontWeight: FontWeight.w400,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Divider(
+                              color: Pallete.blueColor.withAlpha(80),
+                              thickness: 1,
+                            ),
                           ),
-                        ),
-                        title: const Text(
-                          'Total Classes',
-                          style: TextStyle(
-                            color: Pallete.blueColor,
-                            fontSize: 20,
-                            letterSpacing: 2,
-                            fontWeight: FontWeight.w500,
+                          const SizedBox(width: 10),
+                          Text(
+                            "Total Record",
+                            style: TextStyle(
+                              color: Pallete.blueColor.withAlpha(80),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 8,
+                            ),
                           ),
-                        ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Divider(
+                              color: Pallete.blueColor.withAlpha(80),
+                              thickness: 1,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 60,
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(
@@ -119,18 +122,18 @@ class _AttendanceState extends State<AttendanceScreen> {
                         vertical: 5,
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(30),
                         border: Border.all(
-                          width: 1,
-                          color: Pallete.blueColor.withAlpha(100),
+                          width: 10,
+                          color: Colors.white,
                         ),
                       ),
                       child: ListTile(
-                        tileColor: Pallete.blueColor.withAlpha(20),
-                        trailing: const Text(
-                          "10",
-                          style: TextStyle(
-                            color: Pallete.blueColor,
+                        tileColor: Colors.red[900],
+                        trailing: Text(
+                          "$absents",
+                          style: const TextStyle(
+                            color: Pallete.whiteColor,
                             fontSize: 20,
                             letterSpacing: 2,
                             fontWeight: FontWeight.w400,
@@ -139,7 +142,7 @@ class _AttendanceState extends State<AttendanceScreen> {
                         title: const Text(
                           'Absents',
                           style: TextStyle(
-                            color: Pallete.blueColor,
+                            color: Pallete.whiteColor,
                             fontSize: 20,
                             letterSpacing: 2,
                             fontWeight: FontWeight.w500,
@@ -148,7 +151,7 @@ class _AttendanceState extends State<AttendanceScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(
@@ -156,18 +159,18 @@ class _AttendanceState extends State<AttendanceScreen> {
                         vertical: 5,
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(30),
                         border: Border.all(
-                          width: 1,
-                          color: Pallete.blueColor.withAlpha(100),
+                          width: 10,
+                          color: Colors.white,
                         ),
                       ),
                       child: ListTile(
-                        tileColor: Pallete.blueColor.withAlpha(20),
-                        trailing: const Text(
-                          "3",
-                          style: TextStyle(
-                            color: Pallete.blueColor,
+                        tileColor: Colors.yellow[800],
+                        trailing: Text(
+                          "$leaves",
+                          style: const TextStyle(
+                            color: Pallete.whiteColor,
                             fontSize: 20,
                             letterSpacing: 2,
                             fontWeight: FontWeight.w400,
@@ -176,7 +179,7 @@ class _AttendanceState extends State<AttendanceScreen> {
                         title: const Text(
                           'Leaves',
                           style: TextStyle(
-                            color: Pallete.blueColor,
+                            color: Colors.white,
                             fontSize: 20,
                             letterSpacing: 8,
                             fontWeight: FontWeight.w700,
