@@ -181,7 +181,7 @@ class _AttendanceState extends State<AttendanceScreen> {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
-                            letterSpacing: 8,
+                            letterSpacing: 2,
                             fontWeight: FontWeight.w700,
                           ),
                         ),

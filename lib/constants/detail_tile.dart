@@ -28,28 +28,30 @@ class DetailTile extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                letterSpacing: 1,
-                fontWeight: FontWeight.w400,
-                color: Pallete.blueColor,
-                fontSize: 13,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.w400,
+                  color: Pallete.blueColor,
+                  fontSize: 13,
+                ),
               ),
-            ),
-            Text(
-              subtitle,
-              style: const TextStyle(
-                letterSpacing: 5,
-                fontWeight: FontWeight.w700,
-                color: Pallete.blueColor,
-                fontSize: 15,
+              Text(
+                subtitle,
+                style: const TextStyle(
+                  letterSpacing: 5,
+                  fontWeight: FontWeight.w700,
+                  color: Pallete.blueColor,
+                  fontSize: 15,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

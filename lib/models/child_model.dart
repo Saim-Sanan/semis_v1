@@ -1,11 +1,3 @@
-import 'dart:convert';
-
-List<Child> childFromJson(String str) =>
-    List<Child>.from(json.decode(str).map((x) => Child.fromJson(x)));
-
-String childToJson(List<Child> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class Child {
   String stdId;
   String fullName;

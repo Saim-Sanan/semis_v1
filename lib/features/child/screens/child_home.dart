@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:semis/constants/feature_block.dart';
 import 'package:semis/features/attendance/screens/attendance_screen.dart';
+import 'package:semis/features/transport/screens/transport_screen.dart';
 import 'package:semis/models/child_model.dart';
 
 class ChildHome extends StatelessWidget {
@@ -24,7 +25,6 @@ class ChildHome extends StatelessWidget {
               onTap: () {
                 Get.to(
                   () => const AttendanceScreen(),
-                  arguments: child,
                 );
               },
             ),
@@ -36,7 +36,11 @@ class ChildHome extends StatelessWidget {
             FeatureBlock(
               icon: Icons.time_to_leave_outlined,
               title: 'Transport',
-              onTap: () {},
+              onTap: () {
+                Get.to(
+                  () => const TransportScreen(),
+                );
+              },
             ),
             FeatureBlock(
               icon: Icons.date_range_outlined,
