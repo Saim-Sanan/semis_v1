@@ -334,30 +334,6 @@ class _SelectSchoolState extends State<SelectSchool> {
       final enteredPassword =
           await showPasswordInputDialog(Get.context!, "teacher");
       if (enteredPassword != null) {
-        // _schoolController.isLoading.value = true;
-        // final children = await _schoolController.schoolLogin(
-        //     cnic, enteredPassword, school.appApi);
-        // _schoolController.isLoading.value = false;
-
-        // if (children != null) {
-        //   // Check if there are users associated with the CNIC
-        //   if (children.childCount > 0) {
-        //     // If there are users, navigate to a screen where you can display them
-        //     SharedPreferences prefs = await SharedPreferences.getInstance();
-        //     await prefs.setString('schoolUrl', school.appApi);
-        //     Get.to(
-        //       () => const ParentSchoolDashboard(),
-        //       arguments: {
-        //         'school': school,
-        //         'children': children,
-        //       },
-        //     );
-        //   } else {
-        //     // If no users found, display a message to the user
-        //     Get.snackbar("No Users Found",
-        //         "No users are associated with this CNIC.");
-        //   }
-        // }
         Get.to(
           () => const TeacherSchoolDashboard(),
           arguments: {
