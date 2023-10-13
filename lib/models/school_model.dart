@@ -2,6 +2,7 @@ class School {
   String? mobileUsersId;
   String? cnic;
   String? branchId;
+  String? accessType;
   String? schoolName;
   String? branchName;
   String? schoolAddress;
@@ -18,6 +19,7 @@ class School {
     this.mobileUsersId,
     this.cnic,
     this.branchId,
+    this.accessType,
     this.schoolName,
     this.branchName,
     this.schoolAddress,
@@ -35,6 +37,7 @@ class School {
         mobileUsersId: json["MobileUsersID"],
         cnic: json["CNIC"],
         branchId: json["BranchID"],
+        accessType: json["AccessType"],
         schoolName: json["school_name"],
         branchName: json["branchName"],
         schoolAddress: json["school_address"],
@@ -56,6 +59,7 @@ class School {
         "MobileUsersID": mobileUsersId,
         "CNIC": cnic,
         "BranchId": branchId,
+        "AccessType": accessType,
         "school_name": schoolName,
         "branchName": branchName,
         "school_address": schoolAddress,

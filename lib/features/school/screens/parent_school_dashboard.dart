@@ -6,14 +6,14 @@ import 'package:semis/models/child_list.dart';
 import 'package:semis/features/child/screens/child_dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SchoolDashboard extends StatefulWidget {
-  const SchoolDashboard({Key? key}) : super(key: key);
+class ParentSchoolDashboard extends StatefulWidget {
+  const ParentSchoolDashboard({Key? key}) : super(key: key);
 
   @override
-  State<SchoolDashboard> createState() => _SchoolDashboardState();
+  State<ParentSchoolDashboard> createState() => _ParentSchoolDashboardState();
 }
 
-class _SchoolDashboardState extends State<SchoolDashboard> {
+class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
   @override
   Widget build(BuildContext context) {
     final dynamic args = Get.arguments;

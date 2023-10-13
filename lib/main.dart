@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/auth/screens/login_screen.dart';
 import 'package:semis/features/child/screens/child_dashboard.dart';
+import 'package:semis/features/school/screens/parent_school_dashboard.dart';
 import 'package:semis/features/school/screens/select_school.dart';
-import 'package:semis/features/school/screens/school_dashboard.dart';
+import 'package:semis/features/school/screens/teacher_school_dashboard.dart';
 import 'package:semis/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,7 +42,12 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/login', page: () => const LoginScreen()),
         GetPage(name: '/splash', page: () => const SplashScreen()),
         GetPage(name: '/select-school', page: () => const SelectSchool()),
-        GetPage(name: '/school-dashboard', page: () => const SchoolDashboard()),
+        GetPage(
+            name: '/parent-school-dashboard',
+            page: () => const ParentSchoolDashboard()),
+        GetPage(
+            name: '/teacher-school-dashboard',
+            page: () => const TeacherSchoolDashboard()),
         GetPage(name: '/child-dashboard', page: () => const ChildDashboard()),
       ],
     );

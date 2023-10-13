@@ -4,8 +4,9 @@ import 'package:semis/constants/animated_loader.dart';
 import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/auth/controllers/login_controller.dart';
 import 'package:semis/features/school/controllers/school_controller.dart';
+import 'package:semis/features/school/screens/parent_school_dashboard.dart';
+import 'package:semis/features/school/screens/teacher_school_dashboard.dart';
 import 'package:semis/models/school_list.dart';
-import 'package:semis/features/school/screens/school_dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectSchool extends StatefulWidget {
@@ -192,43 +193,70 @@ class _SelectSchoolState extends State<SelectSchool> {
     );
   }
 
+  Future<String?> showAccessTypeDialog(BuildContext context) async {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Select Login Type"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Pallete.blueColor,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    minimumSize: Size(Get.width, 50),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop("parent");
+                  },
+                  child: const Text("Login as Parent"),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Pallete.blueColor,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    minimumSize: Size(Get.width, 50),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop("teacher");
+                  },
+                  child: const Text("Login as Teacher"),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   void navigateToSchool(dynamic school, String cnic) async {
     try {
-      if (school.appApi != null) {
-        // Show the password input dialog and get the entered password
-        final enteredPassword = await showPasswordInputDialog(Get.context!);
+      if (school.accessType == "3") {
+        final loginType = await showAccessTypeDialog(Get.context!);
 
-        if (enteredPassword != null) {
-          _schoolController.isLoading.value = true;
-          final children = await _schoolController.schoolLogin(
-              cnic, enteredPassword, school.appApi);
-          _schoolController.isLoading.value = false;
-
-          if (children != null) {
-            // Check if there are users associated with the CNIC
-            if (children.childCount > 0) {
-              // If there are users, navigate to a screen where you can display them
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.setString('schoolUrl', school.appApi);
-              Get.to(
-                () => const SchoolDashboard(),
-                arguments: {
-                  'school': school,
-                  'children': children,
-                },
-              );
-            } else {
-              // If no users found, display a message to the user
-              Get.snackbar(
-                  "No Users Found", "No users are associated with this CNIC.");
-            }
+        if (loginType != null) {
+          if (loginType == "parent") {
+            loginAsParent(school, cnic);
+          } else if (loginType == "teacher") {
+            loginAsTeacher(school, cnic);
           }
-        } else {
-          // Handle the case where the user canceled the password input dialog
-          Get.snackbar("Password Input Canceled", "Please enter a password.");
-        }
-      } else {
-        Get.snackbar("Api Null", "school Api not found.");
+        } else {}
+      } else if (school.accessType == "1") {
+        loginAsParent(school, cnic);
+      } else if (school.accessType == "2") {
+        loginAsTeacher(school, cnic);
       }
     } catch (e) {
       Get.snackbar("error", e.toString());
@@ -237,14 +265,15 @@ class _SelectSchoolState extends State<SelectSchool> {
     }
   }
 
-  Future<String?> showPasswordInputDialog(BuildContext context) async {
+  Future<String?> showPasswordInputDialog(
+      BuildContext context, String loginType) async {
     return showDialog<String>(
       context: context,
       builder: (BuildContext context) {
         TextEditingController passwordController = TextEditingController();
 
         return AlertDialog(
-          title: const Text("Enter Password"),
+          title: Text("Login As $loginType"),
           content: TextFormField(
             controller: passwordController,
             obscureText: true,
@@ -263,5 +292,81 @@ class _SelectSchoolState extends State<SelectSchool> {
         );
       },
     );
+  }
+
+  Future<void> loginAsParent(school, cnic) async {
+    try {
+      final enteredPassword =
+          await showPasswordInputDialog(Get.context!, "parent");
+      if (enteredPassword != null) {
+        _schoolController.isLoading.value = true;
+        final children = await _schoolController.schoolLogin(
+            cnic, enteredPassword, school.appApi);
+        _schoolController.isLoading.value = false;
+
+        if (children != null) {
+          // Check if there are users associated with the CNIC
+          if (children.childCount > 0) {
+            // If there are users, navigate to a screen where you can display them
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString('schoolUrl', school.appApi);
+            Get.to(
+              () => const ParentSchoolDashboard(),
+              arguments: {
+                'school': school,
+                'children': children,
+              },
+            );
+          } else {
+            // If no users found, display a message to the user
+            Get.snackbar(
+                "No Users Found", "No users are associated with this CNIC.");
+          }
+        }
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Parent Login Failed");
+    }
+  }
+
+  Future<void> loginAsTeacher(school, cnic) async {
+    try {
+      final enteredPassword =
+          await showPasswordInputDialog(Get.context!, "teacher");
+      if (enteredPassword != null) {
+        // _schoolController.isLoading.value = true;
+        // final children = await _schoolController.schoolLogin(
+        //     cnic, enteredPassword, school.appApi);
+        // _schoolController.isLoading.value = false;
+
+        // if (children != null) {
+        //   // Check if there are users associated with the CNIC
+        //   if (children.childCount > 0) {
+        //     // If there are users, navigate to a screen where you can display them
+        //     SharedPreferences prefs = await SharedPreferences.getInstance();
+        //     await prefs.setString('schoolUrl', school.appApi);
+        //     Get.to(
+        //       () => const ParentSchoolDashboard(),
+        //       arguments: {
+        //         'school': school,
+        //         'children': children,
+        //       },
+        //     );
+        //   } else {
+        //     // If no users found, display a message to the user
+        //     Get.snackbar("No Users Found",
+        //         "No users are associated with this CNIC.");
+        //   }
+        // }
+        Get.to(
+          () => const TeacherSchoolDashboard(),
+          arguments: {
+            'school': school,
+          },
+        );
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Teacher Login Failed");
+    }
   }
 }
