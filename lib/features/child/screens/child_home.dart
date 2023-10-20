@@ -24,7 +24,7 @@ class ChildHome extends StatelessWidget {
               title: 'Attendence',
               onTap: () {
                 Get.to(
-                  () => const AttendanceScreen(),
+                  () => const StudentAttendanceScreen(),
                 );
               },
             ),

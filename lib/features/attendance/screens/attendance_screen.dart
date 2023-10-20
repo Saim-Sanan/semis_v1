@@ -6,21 +6,21 @@ import 'package:semis/constants/animated_loader.dart';
 import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/attendance/controllers/attendance_controller.dart';
 
-class AttendanceScreen extends StatefulWidget {
-  const AttendanceScreen({super.key});
+class StudentAttendanceScreen extends StatefulWidget {
+  const StudentAttendanceScreen({super.key});
 
   @override
-  State<AttendanceScreen> createState() => _AttendanceState();
+  State<StudentAttendanceScreen> createState() => _StudentAttendanceState();
 }
 
-class _AttendanceState extends State<AttendanceScreen> {
+class _StudentAttendanceState extends State<StudentAttendanceScreen> {
   final AttendanceController _attendanceController =
       Get.put(AttendanceController());
 
   @override
   void initState() {
     super.initState();
-    _attendanceController.fetchAttendanceData();
+    _attendanceController.fetchStudentAttendanceData();
   }
 
   @override
