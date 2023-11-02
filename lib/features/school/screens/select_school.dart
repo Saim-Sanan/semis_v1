@@ -20,6 +20,8 @@ class _SelectSchoolState extends State<SelectSchool> {
   final SchoolController _schoolController = Get.put(SchoolController());
   final LoginController _loginController = Get.put(LoginController());
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final dynamic args = Get.arguments;
@@ -273,20 +275,76 @@ class _SelectSchoolState extends State<SelectSchool> {
         TextEditingController passwordController = TextEditingController();
 
         return AlertDialog(
-          title: Text("Login As $loginType"),
-          content: TextFormField(
-            controller: passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              hintText: "Password",
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Login As $loginType",
+                style: const TextStyle(
+                  color: Pallete.blueColor,
+                ),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Container(
+                width: 35,
+                height: 35,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.red[300],
+                ),
+                child: IconButton(
+                  iconSize: 15,
+                  icon: const Icon(
+                    Icons.close,
+                    color: Pallete.whiteColor,
+                  ), // Close button
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                ),
+              ),
+            ],
+          ),
+          content: Form(
+            key: _formKey,
+            child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter a password';
+                }
+                return null;
+              },
+              controller: passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: "Password",
+              ),
             ),
           ),
-          actions: <Widget>[
+          actions: [
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop(passwordController.text);
+                if (_formKey.currentState!.validate()) {
+                  Navigator.of(context).pop(passwordController.text);
+                }
               },
-              child: const Text("Submit"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Pallete.blueColor,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                minimumSize: Size(Get.width, 50),
+              ),
+              child: const Text(
+                "Submit",
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  wordSpacing: 2,
+                ),
+              ),
             ),
           ],
         );
