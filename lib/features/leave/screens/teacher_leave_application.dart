@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:semis/constants/animated_loader.dart';
 import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/leave/controllers/leave_controller.dart';
@@ -22,10 +21,6 @@ class _TeacherLeaveApplicationState extends State<TeacherLeaveApplication> {
 
   final TextEditingController _causeController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
