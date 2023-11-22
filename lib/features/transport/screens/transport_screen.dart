@@ -96,6 +96,7 @@ class _TransportScreenState extends State<TransportScreen> {
                           firstDayOfWeek: DateTime.monday,
                           currentDate: today,
                           calendarType: CalendarDatePicker2Type.multi,
+                          selectableDayPredicate: (DateTime date) => false,
                           selectedDayHighlightColor: Pallete.blueColor,
                         ),
                         value: [today],
