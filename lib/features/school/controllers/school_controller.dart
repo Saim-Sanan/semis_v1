@@ -11,6 +11,7 @@ class SchoolController extends GetxController {
   Future<Children?> schoolLogin(
       String cnic, String password, String schoolUrl) async {
     try {
+      isLoading.value = true;
       final loginResponse = await http.post(
         Uri.parse(
             "${schoolUrl}login?email=$cnic&password=$password&device_name=phone"),

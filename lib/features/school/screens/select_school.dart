@@ -262,14 +262,13 @@ class _SelectSchoolState extends State<SelectSchool> {
       }
     } catch (e) {
       Get.snackbar("error", e.toString());
-    } finally {
-      _schoolController.isLoading.value = false;
     }
   }
 
   Future<String?> showPasswordInputDialog(
       BuildContext context, String loginType) async {
     return showDialog<String>(
+      barrierDismissible: false, // This prevents dismissing by clicking outside
       context: context,
       builder: (BuildContext context) {
         TextEditingController passwordController = TextEditingController();
@@ -356,11 +355,10 @@ class _SelectSchoolState extends State<SelectSchool> {
     try {
       final enteredPassword =
           await showPasswordInputDialog(Get.context!, "parent");
+      _schoolController.isLoading.value = true;
       if (enteredPassword != null) {
-        _schoolController.isLoading.value = true;
         final children = await _schoolController.schoolLogin(
             cnic, enteredPassword, school.appApi);
-        _schoolController.isLoading.value = false;
 
         if (children != null) {
           // Check if there are users associated with the CNIC
@@ -382,8 +380,8 @@ class _SelectSchoolState extends State<SelectSchool> {
           }
         }
       }
-    } catch (e) {
-      Get.snackbar("Error", "Parent Login Failed");
+    } finally {
+      _schoolController.isLoading.value = false;
     }
   }
 

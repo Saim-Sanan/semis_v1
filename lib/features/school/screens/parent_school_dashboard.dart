@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:semis/constants/animated_loader.dart';
 import 'package:semis/constants/pallete.dart';
+import 'package:semis/features/school/controllers/school_controller.dart';
 import 'package:semis/models/school_model.dart';
 import 'package:semis/models/child_list.dart';
 import 'package:semis/features/child/screens/child_dashboard.dart';
@@ -14,6 +16,7 @@ class ParentSchoolDashboard extends StatefulWidget {
 }
 
 class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
+  final SchoolController _schoolController = Get.put(SchoolController());
   @override
   Widget build(BuildContext context) {
     final dynamic args = Get.arguments;
@@ -93,120 +96,126 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 50,
-          ),
-          SizedBox(
-            width: Get.width,
-            height: 250,
-            child: PageView.builder(
-              controller: PageController(
-                initialPage: 2,
-                viewportFraction: 0.9,
-              ),
-              // itemCount: 5,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.all(8),
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    color: Pallete.secondaryColor,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          const Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Text(
-              'Children',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Pallete.blueColor,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          SizedBox(
-            width: Get.width,
-            height: 150,
-            child: PageView.builder(
-              controller: PageController(
-                initialPage: 1,
-                viewportFraction: 0.5,
-              ),
-              itemCount: children.childCount,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.setString(
-                        'stdID', children.children[index].stdId);
-                    await prefs.setString(
-                        'classCode', children.children[index].classCode);
-                    Get.to(() => const ChildDashboard(), arguments: {
-                      'child': children.children[index],
-                    });
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.all(8),
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      color: Pallete.secondaryColor,
-                      borderRadius: BorderRadius.circular(25),
+      body: Obx(
+        () {
+          return _schoolController.isLoading.value
+              ? const AnimatedLoader2()
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 50,
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/profile.jpg'),
-                          radius: 30,
+                    SizedBox(
+                      width: Get.width,
+                      height: 250,
+                      child: PageView.builder(
+                        controller: PageController(
+                          initialPage: 2,
+                          viewportFraction: 0.9,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          children.children[index].fullName,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.w600,
-                            color: Pallete.blueColor,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          children.children[index].className,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: Pallete.blueColor,
-                          ),
-                        ),
-                      ],
+                        // itemCount: 5,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: const EdgeInsets.all(8),
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              color: Pallete.secondaryColor,
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Text(
+                        'Children',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Pallete.blueColor,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: Get.width,
+                      height: 150,
+                      child: PageView.builder(
+                        controller: PageController(
+                          initialPage: 1,
+                          viewportFraction: 0.5,
+                        ),
+                        itemCount: children.childCount,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () async {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setString(
+                                  'stdID', children.children[index].stdId);
+                              await prefs.setString('classCode',
+                                  children.children[index].classCode);
+                              Get.to(() => const ChildDashboard(), arguments: {
+                                'child': children.children[index],
+                              });
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.all(8),
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                color: Pallete.secondaryColor,
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const CircleAvatar(
+                                    backgroundImage:
+                                        AssetImage('assets/images/profile.jpg'),
+                                    radius: 30,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    children.children[index].fullName,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      letterSpacing: 1,
+                                      fontWeight: FontWeight.w600,
+                                      color: Pallete.blueColor,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    children.children[index].className,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: Pallete.blueColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 );
-              },
-            ),
-          ),
-        ],
+        },
       ),
     );
   }

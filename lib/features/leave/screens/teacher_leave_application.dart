@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:semis/constants/animated_loader.dart';
@@ -35,11 +33,6 @@ class _TeacherLeaveApplicationState extends State<TeacherLeaveApplication> {
     _leaveController.fetchLeaveApplications();
   }
 
-  Future<List<LeaveApplication>> _fetchLeaveApplications() async {
-    await _leaveController.fetchLeaveApplications();
-    return _leaveController.leaveApplications.toList();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,48 +65,6 @@ class _TeacherLeaveApplicationState extends State<TeacherLeaveApplication> {
             ),
           ),
         ),
-        bottom: PreferredSize(
-          preferredSize: Get.size * 0.03,
-          child: FutureBuilder<List<LeaveApplication>>(
-            future: _fetchLeaveApplications(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const SizedBox();
-              } else {
-                if (snapshot.hasData) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Total Applications: ",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Pallete.whiteColor,
-                            letterSpacing: 2,
-                          ),
-                        ),
-                        Text(
-                          "${snapshot.data!.length}",
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Pallete.whiteColor,
-                            letterSpacing: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  return const Text('No data');
-                }
-              }
-            },
-          ),
-        ),
       ),
       body: Obx(
         () {
@@ -129,49 +80,63 @@ class _TeacherLeaveApplicationState extends State<TeacherLeaveApplication> {
                         physics: const BouncingScrollPhysics(),
                         itemCount: _leaveController.leaveApplications.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: ListTile(
-                              isThreeLine: true,
-                              tileColor: Pallete.blueColor.withAlpha(20),
-                              title: Text(_leaveController
-                                      .leaveApplications[index].type ??
-                                  'no type'),
-                              subtitle: Text(
-                                  "${_leaveController.leaveApplications[index].fromDate != null ? DateFormat('dd-MM-yyyy').format(_leaveController.leaveApplications[index].fromDate!) : 'no date'} - ${_leaveController.leaveApplications[index].toDate != null ? DateFormat('dd-MM-yyyy').format(_leaveController.leaveApplications[index].toDate!) : 'no date'}"),
-                              trailing: Text(
-                                _leaveController
-                                            .leaveApplications[index].status !=
-                                        null
-                                    ? _leaveController.leaveApplications[index]
-                                                .status! ==
-                                            'pending'
-                                        ? 'pending'
-                                        : _leaveController
-                                                    .leaveApplications[index]
-                                                    .status! ==
-                                                'approved'
-                                            ? 'approved'
-                                            : 'rejected'
-                                    : 'pending',
-                                style: TextStyle(
-                                  color: _leaveController
-                                              .leaveApplications[index]
+                          return GestureDetector(
+                            onTap: () {
+                              _showLeaveDetailsDialog(
+                                  _leaveController.leaveApplications[index]);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0,
+                                vertical: 8.0,
+                              ),
+                              child: ListTile(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                isThreeLine: false,
+                                tileColor: Pallete.blueColor.withAlpha(20),
+                                title: Text(_leaveController
+                                        .leaveApplications[index].type ??
+                                    'no type'),
+                                subtitle: Text(
+                                  "${_leaveController.leaveApplications[index].fromDate != null ? DateFormat('dd-MM-yyyy').format(_leaveController.leaveApplications[index].fromDate!) : 'no date'} - ${_leaveController.leaveApplications[index].toDate != null ? DateFormat('dd-MM-yyyy').format(_leaveController.leaveApplications[index].toDate!) : 'no date'}",
+                                ),
+                                trailing: Text(
+                                  _leaveController.leaveApplications[index]
                                               .status !=
                                           null
                                       ? _leaveController
                                                   .leaveApplications[index]
                                                   .status! ==
                                               'pending'
-                                          ? Colors.blue
+                                          ? 'pending'
                                           : _leaveController
                                                       .leaveApplications[index]
                                                       .status! ==
                                                   'approved'
-                                              ? Colors.green
-                                              : Colors.red
-                                      : Colors
-                                          .blue, // Default color for a null status
+                                              ? 'approved'
+                                              : 'rejected'
+                                      : 'pending',
+                                  style: TextStyle(
+                                    color: _leaveController
+                                                .leaveApplications[index]
+                                                .status !=
+                                            null
+                                        ? _leaveController
+                                                    .leaveApplications[index]
+                                                    .status! ==
+                                                'pending'
+                                            ? Colors.blue
+                                            : _leaveController
+                                                        .leaveApplications[
+                                                            index]
+                                                        .status! ==
+                                                    'approved'
+                                                ? Colors.green
+                                                : Colors.red
+                                        : Colors.blue,
+                                  ),
                                 ),
                               ),
                             ),
@@ -186,6 +151,246 @@ class _TeacherLeaveApplicationState extends State<TeacherLeaveApplication> {
     );
   }
 
+  void _showLeaveDetailsDialog(LeaveApplication leaveApplication) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Leave Details",
+                style: TextStyle(color: Pallete.blueColor),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Container(
+                width: 35,
+                height: 35,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.red[300],
+                ),
+                child: IconButton(
+                  iconSize: 15,
+                  icon: const Icon(
+                    Icons.close,
+                    color: Pallete.whiteColor,
+                  ), // Close button
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                ),
+              ),
+            ],
+          ),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Divider(
+                color: Pallete.blueColor.withAlpha(80),
+                thickness: 1,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Leave ID",
+                        style: TextStyle(
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w700,
+                          color: Pallete.blueColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                      Text(
+                        "${leaveApplication.leaveId}",
+                        style: const TextStyle(
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w400,
+                          color: Pallete.blueColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Type",
+                        style: TextStyle(
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w700,
+                          color: Pallete.blueColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                      Text(
+                        "${leaveApplication.type}",
+                        style: const TextStyle(
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w400,
+                          color: Pallete.blueColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Status",
+                        style: TextStyle(
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w700,
+                          color: Pallete.blueColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                      Text(
+                        leaveApplication.status != null
+                            ? leaveApplication.status! == 'pending'
+                                ? 'pending'
+                                : leaveApplication.status! == 'approved'
+                                    ? 'approved'
+                                    : 'rejected'
+                            : 'pending',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: leaveApplication.status != null
+                              ? leaveApplication.status! == 'pending'
+                                  ? Colors.blue
+                                  : leaveApplication.status! == 'approved'
+                                      ? Colors.green
+                                      : Colors.red
+                              : Colors.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Cause",
+                        style: TextStyle(
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w700,
+                          color: Pallete.blueColor,
+                          fontSize: 15,
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width -
+                            130, // Adjust as needed
+                        child: Card(
+                          elevation: 5,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "${leaveApplication.cause}",
+                              style: const TextStyle(
+                                color: Pallete.blueColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "From Date",
+                        style: TextStyle(
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w700,
+                          color: Pallete.blueColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                      Text(
+                        leaveApplication.fromDate != null
+                            ? DateFormat('dd-MM-yyyy')
+                                .format(leaveApplication.fromDate!)
+                            : 'N/A',
+                        style: const TextStyle(
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w400,
+                          color: Pallete.blueColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "To Date",
+                        style: TextStyle(
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w700,
+                          color: Pallete.blueColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                      Text(
+                        leaveApplication.toDate != null
+                            ? DateFormat('dd-MM-yyyy')
+                                .format(leaveApplication.toDate!)
+                            : 'N/A',
+                        style: const TextStyle(
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w400,
+                          color: Pallete.blueColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 5),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   void _showLeaveFormDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -195,7 +400,10 @@ class _TeacherLeaveApplicationState extends State<TeacherLeaveApplication> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("New Leave Application"),
+              const Text(
+                "New Leave Application",
+                style: TextStyle(fontSize: 12),
+              ),
               const SizedBox(
                 width: 20,
               ),
