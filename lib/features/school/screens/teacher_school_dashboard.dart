@@ -4,7 +4,6 @@ import 'package:semis/constants/feature_block.dart';
 import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/attendance/screens/teacher_attendance_screen.dart';
 import 'package:semis/features/leave/screens/teacher_leave_application.dart';
-import 'package:semis/features/transport/screens/transport_screen.dart';
 import 'package:semis/models/school_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -110,30 +109,30 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                 );
               },
             ),
-            FeatureBlock(
-              icon: Icons.book,
-              title: 'Diary',
-              onTap: () {},
-            ),
-            FeatureBlock(
-              icon: Icons.time_to_leave_outlined,
-              title: 'Transport',
-              onTap: () {
-                Get.to(
-                  () => const TransportScreen(),
-                );
-              },
-            ),
-            FeatureBlock(
-              icon: Icons.date_range_outlined,
-              title: 'TimeTable',
-              onTap: () {},
-            ),
-            FeatureBlock(
-              icon: Icons.chat,
-              title: 'Chats',
-              onTap: () {},
-            ),
+            // FeatureBlock(
+            //   icon: Icons.book,
+            //   title: 'Diary',
+            //   onTap: () {},
+            // ),
+            // FeatureBlock(
+            //   icon: Icons.time_to_leave_outlined,
+            //   title: 'Transport',
+            //   onTap: () {
+            //     Get.to(
+            //       () => const TransportScreen(),
+            //     );
+            //   },
+            // ),
+            // FeatureBlock(
+            //   icon: Icons.date_range_outlined,
+            //   title: 'TimeTable',
+            //   onTap: () {},
+            // ),
+            // FeatureBlock(
+            //   icon: Icons.chat,
+            //   title: 'Chats',
+            //   onTap: () {},
+            // ),
             FeatureBlock(
               icon: Icons.directions_walk,
               title: 'Leave',
@@ -143,16 +142,16 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                 );
               },
             ),
-            FeatureBlock(
-              icon: Icons.text_snippet,
-              title: 'Exam',
-              onTap: () {},
-            ),
-            FeatureBlock(
-              icon: Icons.report,
-              title: 'Report',
-              onTap: () {},
-            ),
+            // FeatureBlock(
+            //   icon: Icons.text_snippet,
+            //   title: 'Exam',
+            //   onTap: () {},
+            // ),
+            // FeatureBlock(
+            //   icon: Icons.report,
+            //   title: 'Report',
+            //   onTap: () {},
+            // ),
           ],
         ),
       ),

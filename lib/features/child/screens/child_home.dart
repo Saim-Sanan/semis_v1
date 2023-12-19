@@ -28,11 +28,11 @@ class ChildHome extends StatelessWidget {
                 );
               },
             ),
-            FeatureBlock(
-              icon: Icons.book,
-              title: 'Diary',
-              onTap: () {},
-            ),
+            // FeatureBlock(
+            //   icon: Icons.book,
+            //   title: 'Diary',
+            //   onTap: () {},
+            // ),
             FeatureBlock(
               icon: Icons.time_to_leave_outlined,
               title: 'Transport',
@@ -42,31 +42,31 @@ class ChildHome extends StatelessWidget {
                 );
               },
             ),
-            FeatureBlock(
-              icon: Icons.date_range_outlined,
-              title: 'TimeTable',
-              onTap: () {},
-            ),
-            FeatureBlock(
-              icon: Icons.chat,
-              title: 'Chats',
-              onTap: () {},
-            ),
-            FeatureBlock(
-              icon: Icons.directions_walk,
-              title: 'Leave',
-              onTap: () {},
-            ),
-            FeatureBlock(
-              icon: Icons.text_snippet,
-              title: 'Exam',
-              onTap: () {},
-            ),
-            FeatureBlock(
-              icon: Icons.report,
-              title: 'Report',
-              onTap: () {},
-            ),
+            // FeatureBlock(
+            //   icon: Icons.date_range_outlined,
+            //   title: 'TimeTable',
+            //   onTap: () {},
+            // ),
+            // FeatureBlock(
+            //   icon: Icons.chat,
+            //   title: 'Chats',
+            //   onTap: () {},
+            // ),
+            // FeatureBlock(
+            //   icon: Icons.directions_walk,
+            //   title: 'Leave',
+            //   onTap: () {},
+            // ),
+            // FeatureBlock(
+            //   icon: Icons.text_snippet,
+            //   title: 'Exam',
+            //   onTap: () {},
+            // ),
+            // FeatureBlock(
+            //   icon: Icons.report,
+            //   title: 'Report',
+            //   onTap: () {},
+            // ),
           ],
         ),
       ),
