@@ -18,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final LoginController _authController = Get.put(LoginController());
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

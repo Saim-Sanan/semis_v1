@@ -5,6 +5,7 @@ import 'package:semis/constants/animated_loader.dart';
 
 import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/attendance/controllers/attendance_controller.dart';
+import 'package:semis/features/attendance/screens/absentees_detail_screen.dart';
 
 class StudentAttendanceScreen extends StatefulWidget {
   const StudentAttendanceScreen({super.key});
@@ -134,37 +135,43 @@ class _StudentAttendanceState extends State<StudentAttendanceScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              width: 150, // Set the width as needed
-                              height: 150, // Set the height as needed
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: const Color.fromARGB(200, 183, 28, 28),
-                              ),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "$absents",
-                                      style: const TextStyle(
-                                        color: Pallete.whiteColor,
-                                        fontSize: 20,
-                                        letterSpacing: 2,
-                                        fontWeight: FontWeight.w400,
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(()=> AbsenteesDetailScreen(), arguments: { 'data' : _attendanceController.attendanceData});
+
+                              },
+                              child: Container(
+                                width: 150, // Set the width as needed
+                                height: 150, // Set the height as needed
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: const Color.fromARGB(200, 183, 28, 28),
+                                ),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "$absents",
+                                        style: const TextStyle(
+                                          color: Pallete.whiteColor,
+                                          fontSize: 20,
+                                          letterSpacing: 2,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    const Text(
-                                      'Absents',
-                                      style: TextStyle(
-                                        color: Pallete.whiteColor,
-                                        fontSize: 20,
-                                        letterSpacing: 2,
-                                        fontWeight: FontWeight.w500,
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                        'Absents',
+                                        style: TextStyle(
+                                          color: Pallete.whiteColor,
+                                          fontSize: 20,
+                                          letterSpacing: 2,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
