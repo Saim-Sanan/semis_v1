@@ -71,27 +71,24 @@ class _StudentAttendanceState extends State<StudentAttendanceScreen> {
                           height: 10,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
                           child: Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
                             elevation: 5,
-                            child: Container(
-                              margin: const EdgeInsets.all(10),
-                              child: CalendarDatePicker2(
-                                displayedMonthDate: today,
-                                config: CalendarDatePicker2Config(
-                                  firstDayOfWeek: DateTime.monday,
-                                  currentDate: today,
-                                  calendarType: CalendarDatePicker2Type.multi,
-                                  selectableDayPredicate: (DateTime date) =>
-                                      false,
-                                  selectedDayHighlightColor: Pallete.blueColor,
-                                ),
-                                value: _attendanceController.attendanceData.keys
-                                    .toList(),
+                            child: CalendarDatePicker2(
+                              displayedMonthDate: today,
+                              config: CalendarDatePicker2Config(
+                                firstDayOfWeek: DateTime.monday,
+                                currentDate: today,
+                                calendarType: CalendarDatePicker2Type.multi,
+                                selectableDayPredicate: (DateTime date) =>
+                                    false,
+                                selectedDayHighlightColor: Pallete.blueColor,
                               ),
+                              value: _attendanceController.attendanceData.keys
+                                  .toList(),
                             ),
                           ),
                         ),
