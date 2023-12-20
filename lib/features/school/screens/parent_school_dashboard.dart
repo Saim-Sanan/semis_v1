@@ -17,6 +17,7 @@ class ParentSchoolDashboard extends StatefulWidget {
 
 class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
   final SchoolController _schoolController = Get.put(SchoolController());
+
   @override
   Widget build(BuildContext context) {
     final dynamic args = Get.arguments;
@@ -25,7 +26,7 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100.0,
+        toolbarHeight: Get.height * 0.13,
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Container(
@@ -42,7 +43,8 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
                   errorBuilder: (context, error, stackTrace) {
                     // If the image loading fails, display the default image
                     return Image.asset(
-                      'assets/images/image.jpg', // Replace with the path to your default image
+                      'assets/images/image.jpg',
+                      // Replace with the path to your default image
                       width: 50,
                       height: 50,
                       fit: BoxFit.scaleDown,
@@ -103,12 +105,12 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 50,
+                    SizedBox(
+                      height: Get.height * 0.05,
                     ),
                     SizedBox(
                       width: Get.width,
-                      height: 250,
+                      height: Get.height * 0.34,
                       child: PageView.builder(
                         controller: PageController(
                           initialPage: 2,
@@ -128,8 +130,8 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
                         },
                       ),
                     ),
-                    const SizedBox(
-                      height: 50,
+                    SizedBox(
+                      height: Get.height * 0.04,
                     ),
                     const Padding(
                       padding: EdgeInsets.all(20.0),
@@ -142,12 +144,12 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: Get.height * 0.03,
                     ),
                     SizedBox(
                       width: Get.width,
-                      height: 150,
+                      height: Get.height * 0.2,
                       child: PageView.builder(
                         controller: PageController(
                           initialPage: 1,
@@ -183,8 +185,8 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
                                         AssetImage('assets/images/profile.jpg'),
                                     radius: 30,
                                   ),
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: Get.height * 0.01,
                                   ),
                                   Text(
                                     children.children[index].fullName,
@@ -195,8 +197,8 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
                                       color: Pallete.blueColor,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 5,
+                                  SizedBox(
+                                    height: Get.height * 0.01,
                                   ),
                                   Text(
                                     children.children[index].className,
