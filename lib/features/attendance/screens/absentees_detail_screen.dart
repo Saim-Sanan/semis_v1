@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-
-=======
->>>>>>> d43253e82c12cd92d7f514db24da902ee11142d8
 import 'package:get/get.dart';
 import 'package:semis/constants/pallete.dart';
 
