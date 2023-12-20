@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/pallete.dart';
 import 'package:get/get.dart';
+import 'package:semis/constants/pallete.dart';
 
 class AbsenteesDetailScreen extends StatefulWidget {
   const AbsenteesDetailScreen({Key? key}) : super(key: key);
@@ -41,6 +41,7 @@ class _AbsenteesDetailScreenState extends State<AbsenteesDetailScreen> {
         ),
       ),
       body: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: data.length,
         itemBuilder: (context, index) => Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
