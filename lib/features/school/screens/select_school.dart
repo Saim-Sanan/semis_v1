@@ -27,6 +27,7 @@ class _SelectSchoolState extends State<SelectSchool> {
     final dynamic args = Get.arguments;
     final SchoolList schools = args['schools'];
     final String cnic = args['cnic'];
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 100.0,
@@ -95,10 +96,10 @@ class _SelectSchoolState extends State<SelectSchool> {
                       const SizedBox(
                         height: 50,
                       ),
-                      Center(
+                      const Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
                               'Welcome to the SEMIS by',
                               textAlign: TextAlign.center,
@@ -169,7 +170,8 @@ class _SelectSchoolState extends State<SelectSchool> {
                                     errorBuilder: (context, error, stackTrace) {
                                       // If the image loading fails, display the default image
                                       return Image.asset(
-                                        'assets/images/image.jpg', // Replace with the path to your default image
+                                        'assets/images/image.jpg',
+                                        // Replace with the path to your default image
                                         width: 50,
                                         height: 50,
                                         fit: BoxFit.scaleDown,
@@ -357,7 +359,7 @@ class _SelectSchoolState extends State<SelectSchool> {
           await showPasswordInputDialog(Get.context!, "parent");
       _schoolController.isLoading.value = true;
       if (enteredPassword != null) {
-        final children = await _schoolController.schoolLogin(
+        final children = await _schoolController.parentSchoolLogin(
             cnic, enteredPassword, school.appApi);
 
         if (children != null) {
@@ -390,15 +392,31 @@ class _SelectSchoolState extends State<SelectSchool> {
       final enteredPassword =
           await showPasswordInputDialog(Get.context!, "teacher");
       if (enteredPassword != null) {
-        Get.to(
-          () => const TeacherSchoolDashboard(),
-          arguments: {
-            'school': school,
-          },
-        );
+        //this returns an employee if the password is correct otherwise its null.
+        final employee = await _schoolController.teacherSchoolLogin(
+            cnic,
+            enteredPassword,
+            school
+                .appApi);
+
+        if (employee != null) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('schoolUrl', school.appApi);
+          Get.to(
+                () => const TeacherSchoolDashboard(),
+            arguments: {
+              'school': school,
+              'employee' : employee,
+            },
+          );
+        } else {
+          // If no users found, display a message to the user
+          Get.snackbar(
+              "No Users Found", "No users are associated with this CNIC.");
+        }
       }
     } catch (e) {
-      Get.snackbar("Error", "Teacher Login Failed");
+      _schoolController.isLoading.value = false;
     }
   }
 }

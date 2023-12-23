@@ -131,7 +131,7 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
                       ),
                     ),
                     SizedBox(
-                      height: Get.height * 0.04,
+                      height: Get.height * 0.06,
                     ),
                     const Padding(
                       padding: EdgeInsets.all(20.0),
