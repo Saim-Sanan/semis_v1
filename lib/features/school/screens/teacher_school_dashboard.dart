@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:semis/constants/animated_loader.dart';
 import 'package:semis/constants/feature_block.dart';
 import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/attendance/screens/teacher_attendance_screen.dart';
 import 'package:semis/features/leave/screens/teacher_leave_application.dart';
+import 'package:semis/features/school/controllers/school_controller.dart';
 import 'package:semis/models/school_model.dart';
+import 'package:semis/models/teacher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TeacherSchoolDashboard extends StatefulWidget {
@@ -15,10 +18,12 @@ class TeacherSchoolDashboard extends StatefulWidget {
 }
 
 class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
+  final SchoolController _schoolController = Get.put(SchoolController());
   @override
   Widget build(BuildContext context) {
     final dynamic args = Get.arguments;
     final School school = args['school'];
+    final Teacher teacher = args['teacher'];
 
     return Scaffold(
       appBar: AppBar(
@@ -73,8 +78,8 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
             icon: const Icon(Icons.swap_horizontal_circle_sharp),
             onPressed: () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.remove('token');
               await prefs.remove('schoolUrl');
+              await prefs.remove('teacherId');
               Get.back();
             },
           )
@@ -84,7 +89,7 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: Text(
-              "${school.branchName}",
+              "${teacher.teacherName}",
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 12,
@@ -93,67 +98,74 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
           ),
         ),
       ),
-      body: Container(
-        margin: const EdgeInsets.only(bottom: 0.0, left: 20, right: 20),
-        child: GridView.count(
-          scrollDirection: Axis.vertical,
-          physics: const BouncingScrollPhysics(),
-          crossAxisCount: 2,
-          children: [
-            FeatureBlock(
-              icon: Icons.done_outline,
-              title: 'Attendence',
-              onTap: () {
-                Get.to(
-                  () => const TeacherAttendanceScreen(),
+      body: Obx(
+        () {
+          return _schoolController.isLoading.value
+              ? const AnimatedLoader2()
+              : Container(
+                  margin:
+                      const EdgeInsets.only(bottom: 0.0, left: 20, right: 20),
+                  child: GridView.count(
+                    scrollDirection: Axis.vertical,
+                    physics: const BouncingScrollPhysics(),
+                    crossAxisCount: 2,
+                    children: [
+                      FeatureBlock(
+                        icon: Icons.done_outline,
+                        title: 'Attendence',
+                        onTap: () {
+                          Get.to(
+                            () => const TeacherAttendanceScreen(),
+                          );
+                        },
+                      ),
+                      // FeatureBlock(
+                      //   icon: Icons.book,
+                      //   title: 'Diary',
+                      //   onTap: () {},
+                      // ),
+                      // FeatureBlock(
+                      //   icon: Icons.time_to_leave_outlined,
+                      //   title: 'Transport',
+                      //   onTap: () {
+                      //     Get.to(
+                      //       () => const TransportScreen(),
+                      //     );
+                      //   },
+                      // ),
+                      // FeatureBlock(
+                      //   icon: Icons.date_range_outlined,
+                      //   title: 'TimeTable',
+                      //   onTap: () {},
+                      // ),
+                      // FeatureBlock(
+                      //   icon: Icons.chat,
+                      //   title: 'Chats',
+                      //   onTap: () {},
+                      // ),
+                      FeatureBlock(
+                        icon: Icons.directions_walk,
+                        title: 'Leave',
+                        onTap: () {
+                          Get.to(
+                            () => const TeacherLeaveApplication(),
+                          );
+                        },
+                      ),
+                      // FeatureBlock(
+                      //   icon: Icons.text_snippet,
+                      //   title: 'Exam',
+                      //   onTap: () {},
+                      // ),
+                      // FeatureBlock(
+                      //   icon: Icons.report,
+                      //   title: 'Report',
+                      //   onTap: () {},
+                      // ),
+                    ],
+                  ),
                 );
-              },
-            ),
-            // FeatureBlock(
-            //   icon: Icons.book,
-            //   title: 'Diary',
-            //   onTap: () {},
-            // ),
-            // FeatureBlock(
-            //   icon: Icons.time_to_leave_outlined,
-            //   title: 'Transport',
-            //   onTap: () {
-            //     Get.to(
-            //       () => const TransportScreen(),
-            //     );
-            //   },
-            // ),
-            // FeatureBlock(
-            //   icon: Icons.date_range_outlined,
-            //   title: 'TimeTable',
-            //   onTap: () {},
-            // ),
-            // FeatureBlock(
-            //   icon: Icons.chat,
-            //   title: 'Chats',
-            //   onTap: () {},
-            // ),
-            FeatureBlock(
-              icon: Icons.directions_walk,
-              title: 'Leave',
-              onTap: () {
-                Get.to(
-                  () => const TeacherLeaveApplication(),
-                );
-              },
-            ),
-            // FeatureBlock(
-            //   icon: Icons.text_snippet,
-            //   title: 'Exam',
-            //   onTap: () {},
-            // ),
-            // FeatureBlock(
-            //   icon: Icons.report,
-            //   title: 'Report',
-            //   onTap: () {},
-            // ),
-          ],
-        ),
+        },
       ),
     );
   }

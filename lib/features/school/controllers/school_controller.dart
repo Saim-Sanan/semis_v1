@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:semis/models/child_model.dart';
 import 'package:semis/models/child_list.dart';
 import 'package:http/http.dart' as http;
-import 'package:semis/models/employee.dart';
+import 'package:semis/models/teacher.dart';
 
 class SchoolController extends GetxController {
   RxBool isLoading = false.obs;
@@ -57,8 +57,9 @@ class SchoolController extends GetxController {
     }
   }
 
-  Future<Employee?> teacherSchoolLogin(String cnic, String password, String schoolUrl) async{
-    try{
+  Future<Teacher?> teacherSchoolLogin(
+      String cnic, String password, String schoolUrl) async {
+    try {
       isLoading.value = true;
       final loginResponse = await http.post(
         Uri.parse(
@@ -73,19 +74,15 @@ class SchoolController extends GetxController {
         };
 
         var userResponse = await http.get(
-          Uri.parse("${schoolUrl}getemployeebycnic?CNIC=${cnic}"),
+          Uri.parse("${schoolUrl}getemployeebycnic?CNIC=$cnic"),
           headers: headers,
         );
 
         if (userResponse.statusCode == 200) {
           var jsonResponse = json.decode(userResponse.body);
 
-          if (jsonResponse is List && jsonResponse.isNotEmpty) {
-            List<Employee> employees = jsonResponse.map((jsonObject) {
-              return Employee.fromJson(jsonObject);
-            }).toList();
-
-            return employees[0];//returning the first because we will have only one employee data here.
+          if (jsonResponse.isNotEmpty) {
+            return Teacher.fromJson(jsonResponse[0]);
           } else {
             Get.snackbar("Error", 'Invalid API response');
             return null;
@@ -98,9 +95,7 @@ class SchoolController extends GetxController {
         Get.snackbar("Error", loginResponse.reasonPhrase.toString());
         return null;
       }
-
-
-    }catch (e) {
+    } catch (e) {
       Get.snackbar("Error", e.toString());
       return null;
     }

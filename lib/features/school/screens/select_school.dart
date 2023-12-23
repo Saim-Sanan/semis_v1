@@ -96,10 +96,10 @@ class _SelectSchoolState extends State<SelectSchool> {
                       const SizedBox(
                         height: 50,
                       ),
-                      const Center(
+                      Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Text(
                               'Welcome to the SEMIS by',
                               textAlign: TextAlign.center,
@@ -382,6 +382,8 @@ class _SelectSchoolState extends State<SelectSchool> {
           }
         }
       }
+    } catch (e) {
+      _schoolController.isLoading.value = false;
     } finally {
       _schoolController.isLoading.value = false;
     }
@@ -391,22 +393,21 @@ class _SelectSchoolState extends State<SelectSchool> {
     try {
       final enteredPassword =
           await showPasswordInputDialog(Get.context!, "teacher");
+      _schoolController.isLoading.value = true;
       if (enteredPassword != null) {
         //this returns an employee if the password is correct otherwise its null.
-        final employee = await _schoolController.teacherSchoolLogin(
-            cnic,
-            enteredPassword,
-            school
-                .appApi);
+        final teacher = await _schoolController.teacherSchoolLogin(
+            cnic, enteredPassword, school.appApi);
 
-        if (employee != null) {
+        if (teacher != null) {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('schoolUrl', school.appApi);
+          await prefs.setInt('teacherId', teacher.employeeId);
           Get.to(
-                () => const TeacherSchoolDashboard(),
+            () => const TeacherSchoolDashboard(),
             arguments: {
               'school': school,
-              'employee' : employee,
+              'teacher': teacher,
             },
           );
         } else {
@@ -417,7 +418,8 @@ class _SelectSchoolState extends State<SelectSchool> {
       }
     } catch (e) {
       _schoolController.isLoading.value = false;
-
+    } finally {
+      _schoolController.isLoading.value = false;
     }
   }
 }
