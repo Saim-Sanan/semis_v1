@@ -49,7 +49,6 @@ class MyApp extends StatelessWidget {
             name: '/teacher-school-dashboard',
             page: () => const TeacherSchoolDashboard()),
         GetPage(name: '/child-dashboard', page: () => const ChildDashboard()),
-        GetPage(name: '/child-dashboard', page: () => const ChildDashboard()),
       ],
     );
   }
