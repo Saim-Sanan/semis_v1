@@ -44,7 +44,7 @@ class _SelectSchoolState extends State<SelectSchool> {
           ),
         ),
         title: const Text(
-          'Parent',
+          'User',
           style: TextStyle(
             fontSize: 24.0, // Optional: Set the title font size
             fontWeight: FontWeight.bold, // Optional: Set the title font weight
