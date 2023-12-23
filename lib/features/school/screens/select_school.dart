@@ -417,6 +417,7 @@ class _SelectSchoolState extends State<SelectSchool> {
       }
     } catch (e) {
       _schoolController.isLoading.value = false;
+
     }
   }
 }
