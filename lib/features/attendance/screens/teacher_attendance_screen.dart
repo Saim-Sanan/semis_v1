@@ -61,7 +61,7 @@ class _TeacherAttendanceState extends State<TeacherAttendanceScreen> {
           return _attendanceController.isLoading.value
               ? const AnimatedLoader2()
               : SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
                       const SizedBox(

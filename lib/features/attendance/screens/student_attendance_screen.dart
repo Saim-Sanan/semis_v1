@@ -71,7 +71,8 @@ class _StudentAttendanceState extends State<StudentAttendanceScreen> {
                           height: 10,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.02),
                           child: Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
@@ -134,8 +135,11 @@ class _StudentAttendanceState extends State<StudentAttendanceScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Get.to(()=> AbsenteesDetailScreen(), arguments: { 'data' : _attendanceController.attendanceData});
-
+                                Get.to(() => const AbsenteesDetailScreen(),
+                                    arguments: {
+                                      'data':
+                                          _attendanceController.attendanceData
+                                    });
                               },
                               child: Container(
                                 width: 150, // Set the width as needed
