@@ -78,8 +78,8 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
             icon: const Icon(Icons.swap_horizontal_circle_sharp),
             onPressed: () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.remove('token');
               await prefs.remove('schoolUrl');
+              await prefs.remove('teacherId');
               Get.back();
             },
           )
