@@ -6,6 +6,7 @@ import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/attendance/screens/teacher_attendance_screen.dart';
 import 'package:semis/features/leave/screens/teacher_leave_application.dart';
 import 'package:semis/features/school/controllers/school_controller.dart';
+import 'package:semis/features/teacher/screens/teacher_profile.dart';
 import 'package:semis/features/transport/screens/transport_screen.dart';
 import 'package:semis/models/school_model.dart';
 import 'package:semis/models/teacher.dart';
@@ -26,7 +27,6 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
     final dynamic args = Get.arguments;
     final School school = args['school'];
     final Teacher teacher = args['teacher'];
-
 
     return Scaffold(
       appBar: AppBar(
@@ -93,136 +93,224 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
         () {
           return _schoolController.isLoading.value
               ? const AnimatedLoader2()
-              : Column(
-                  children: [
-                    Card(
-                      margin: EdgeInsets.only(
-                        left: Get.height * 0.03,
-                        right: Get.height * 0.03,
-                        top: Get.height * 0.03,
-                        bottom: Get.height * 0.015,
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          child: Image.network(
-                            '${school.appApi!.replaceFirst("/api/", "/")}/${teacher.empImage}',
-                            width: 50,
-                            height: 50,
-                            fit: BoxFit.scaleDown,
-                            errorBuilder: (context, error, stackTrace) {
-                              // If the image loading fails, display the default image
-                              return Image.asset(
-                                'assets/images/image.jpg',
-                                // Replace with the path to your default image
-                                width: 50,
-                                height: 50,
-                                fit: BoxFit.scaleDown,
-                              );
-                            },
-                          ),
-                        ),
-                        title: Text(
-                          teacher.gender == "Male"
-                              ? "Mr. ${teacher.empName}"
-                              : "Ms. ${teacher.empName}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: Get.height * 0.02,
-                          ),
-                        ),
-                        //todo: to be changed to actual subject
-                        subtitle: Text("Subject"),
-                        trailing: GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Get.height * 0.015,
-                                vertical: Get.height * 0.007),
-                            decoration: BoxDecoration(
-                                color: Pallete.blueColor,
-                                borderRadius:
-                                    BorderRadius.circular(Get.height * 0.005)),
-                            child: Text("View Profile",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: Get.height * 0.015)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
+              : SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      Card(
+                        elevation: 2,
                         margin: EdgeInsets.only(
-                            bottom: 0.0,
-                            left: Get.height * 0.03,
-                            right: Get.height * 0.03),
-                        padding: EdgeInsets.only(
-                            bottom: 0.0,
-                            left: Get.height * 0.03,
-                            right: Get.height * 0.03),
-                        child: GridView.count(
-                          scrollDirection: Axis.vertical,
-                          physics: const BouncingScrollPhysics(),
-                          crossAxisCount: 2,
+                          left: Get.height * 0.03,
+                          right: Get.height * 0.03,
+                          top: Get.height * 0.03,
+                          // bottom: Get.height * 0.015,
+                        ),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            child: Image.network(
+                              '${school.appApi!.replaceFirst("/api/", "/")}/${teacher.empImage}',
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.scaleDown,
+                              errorBuilder: (context, error, stackTrace) {
+                                // If the image loading fails, display the default image
+                                return Image.asset(
+                                  'assets/images/image.jpg',
+                                  // Replace with the path to your default image
+                                  width: 50,
+                                  height: 50,
+                                  fit: BoxFit.scaleDown,
+                                );
+                              },
+                            ),
+                          ),
+                          title: Text(
+                            teacher.gender == "Male"
+                                ? "Mr. ${teacher.empName}"
+                                : "Ms. ${teacher.empName}",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: Get.height * 0.02,
+                            ),
+                          ),
+                          //todo: to be changed to actual subject
+                          subtitle: const Text("Subject"),
+                          trailing: GestureDetector(
+                            onTap: () {},
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.to(() => TeacherProfile(
+                                      teacher: teacher,
+                                    ));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.height * 0.015,
+                                    vertical: Get.height * 0.007),
+                                decoration: BoxDecoration(
+                                    color: Pallete.blueColor,
+                                    borderRadius: BorderRadius.circular(
+                                        Get.height * 0.005)),
+                                child: Text("View Profile",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: Get.height * 0.015)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Card(
+                        elevation: 2,
+                        margin: EdgeInsets.only(
+                          left: Get.height * 0.03,
+                          right: Get.height * 0.03,
+                          top: Get.height * 0.03,
+                          bottom: Get.height * 0.015,
+                        ),
+                        child: const ListTile(
+                          title: Text(
+                            "Announcments",
+                            style: TextStyle(
+                                color: Pallete.blueColor,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          trailing: Icon(
+                            Icons.notifications,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            FeatureBlock(
-                              icon: Icons.done_outline,
-                              title: 'Attendence',
-                              onTap: () {
-                                Get.to(
-                                  () => const TeacherAttendanceScreen(),
-                                );
-                              },
+                            Expanded(
+                              child: Divider(
+                                color: Pallete.blueColor.withAlpha(80),
+                                thickness: 1,
+                              ),
                             ),
-                            FeatureBlock(
-                              icon: Icons.book,
-                              title: 'Diary',
-                              onTap: () {},
+                            const SizedBox(width: 10),
+                            Text(
+                              "Modules",
+                              style: TextStyle(
+                                color: Pallete.blueColor.withAlpha(80),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 8,
+                              ),
                             ),
-                            FeatureBlock(
-                              icon: Icons.time_to_leave_outlined,
-                              title: 'Transport',
-                              onTap: () {
-                                Get.to(
-                                  () => const TransportScreen(),
-                                );
-                              },
-                            ),
-                            FeatureBlock(
-                              icon: Icons.date_range_outlined,
-                              title: 'TimeTable',
-                              onTap: () {},
-                            ),
-                            FeatureBlock(
-                              icon: Icons.chat,
-                              title: 'Chats',
-                              onTap: () {},
-                            ),
-                            FeatureBlock(
-                              icon: Icons.directions_walk,
-                              title: 'Leave',
-                              onTap: () {
-                                Get.to(
-                                  () => const TeacherLeaveApplication(),
-                                );
-                              },
-                            ),
-                            FeatureBlock(
-                              icon: Icons.text_snippet,
-                              title: 'Exam',
-                              onTap: () {},
-                            ),
-                            FeatureBlock(
-                              icon: Icons.report,
-                              title: 'Report',
-                              onTap: () {},
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Divider(
+                                color: Pallete.blueColor.withAlpha(80),
+                                thickness: 1,
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Card(
+                        elevation: 2,
+                        margin: EdgeInsets.only(
+                          left: Get.height * 0.03,
+                          right: Get.height * 0.03,
+                          top: Get.height * 0.03,
+                          bottom: Get.height * 0.015,
+                        ),
+                        child: Container(
+                          height: Get.height * 0.5,
+                          // margin: EdgeInsets.only(
+                          //     bottom: 0.0,
+                          //     left: Get.height * 0.03,
+                          //     right: Get.height * 0.03),
+                          // padding: EdgeInsets.only(
+                          //     bottom: 0.0,
+                          //     left: Get.height * 0.03,
+                          //     right: Get.height * 0.03),
+                          child: GridView.count(
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            crossAxisCount: 3,
+                            children: [
+                              FeatureBlock(
+                                icon: Icons.done_outline,
+                                title: 'Attendence',
+                                onTap: () {
+                                  Get.to(
+                                    () => const TeacherAttendanceScreen(),
+                                  );
+                                },
+                              ),
+                              FeatureBlock(
+                                icon: Icons.book,
+                                title: 'Diary',
+                                onTap: () {},
+                              ),
+                              FeatureBlock(
+                                icon: Icons.time_to_leave_outlined,
+                                title: 'Transport',
+                                onTap: () {
+                                  Get.to(
+                                    () => const TransportScreen(),
+                                  );
+                                },
+                              ),
+                              FeatureBlock(
+                                icon: Icons.date_range_outlined,
+                                title: 'TimeTable',
+                                onTap: () {},
+                              ),
+                              FeatureBlock(
+                                icon: Icons.chat,
+                                title: 'Chats',
+                                onTap: () {},
+                              ),
+                              FeatureBlock(
+                                icon: Icons.directions_walk,
+                                title: 'Leave',
+                                onTap: () {
+                                  Get.to(
+                                    () => const TeacherLeaveApplication(),
+                                  );
+                                },
+                              ),
+                              FeatureBlock(
+                                icon: Icons.text_snippet,
+                                title: 'Exam',
+                                onTap: () {},
+                              ),
+                              FeatureBlock(
+                                icon: Icons.report,
+                                title: 'Report',
+                                onTap: () {},
+                              ),
+                              FeatureBlock(
+                                icon: Icons.report,
+                                title: 'Report',
+                                onTap: () {},
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
         },
       ),

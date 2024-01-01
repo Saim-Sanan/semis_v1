@@ -1,38 +1,38 @@
 class Teacher {
   int employeeId;
-  int? dutyTimeId;
+  int dutyTimeId;
   String empName;
-  String? fatherName;
+  String fatherName;
   dynamic husbandName;
   String cnicNumber;
-  String? gender;
+  String gender;
   dynamic bloodGroup;
   dynamic bankId;
   dynamic bankAddress;
   dynamic salaryAccountNo;
-  String? designationOnJoining;
-  int? joiningPayScale;
-  int? currentPayScale;
-  int? categoryId;
-  int? designationId;
-  int? empStatusId;
-  DateTime? joiningDate;
+  String designationOnJoining;
+  int joiningPayScale;
+  int currentPayScale;
+  int categoryId;
+  int designationId;
+  int empStatusId;
+  DateTime joiningDate;
   dynamic leavingDate;
-  DateTime? birthDate;
-  String? birthPlace;
-  String? currentDistrict;
-  String? currentAddress;
-  int? currentPhone;
+  DateTime birthDate;
+  String birthPlace;
+  String currentDistrict;
+  String currentAddress;
+  int currentPhone;
   dynamic emailAddress;
-  String? permanentDistrict;
-  String? permanentAddress;
-  String? permanentPhone;
-  int? religionId;
+  String permanentDistrict;
+  String permanentAddress;
+  String permanentPhone;
+  int religionId;
   dynamic maritalStatusId;
-  String? empImage;
+  String empImage;
   dynamic fingerPrint;
-  int? domicileId;
-  int? empTypeId;
+  int domicileId;
+  int empTypeId;
   dynamic totalSalary;
   dynamic allowance;
   dynamic allowanceDetail;
@@ -41,124 +41,124 @@ class Teacher {
   dynamic security;
   dynamic advSalaryDetail;
   dynamic advSalaryAmount;
-  String? qualification;
-  String? professionalEducation;
-  String? specialization;
+  String qualification;
+  String professionalEducation;
+  String specialization;
   dynamic createdAt;
   dynamic insertedByUserId;
   dynamic updatedByUserId;
   dynamic updatedAt;
-  String? religionName;
-  String? empDesignation;
-  String? empStatus;
-  String? empTypeTitle;
+  String religionName;
+  String empDesignation;
+  String empStatus;
+  String empTypeTitle;
   dynamic bankName;
   dynamic dutyShiftId;
-  String? timeIn;
-  String? timeInend;
-  String? timeOutStart;
-  String? timeOut;
-  int? isActive;
+  String timeIn;
+  String timeInend;
+  String timeOutStart;
+  String timeOut;
+  int isActive;
   dynamic dutyShift;
-  int? districtId;
-  String? districtName;
-  int? provinceId;
-  String? provinceName;
-  String? shortName;
-  int? country;
-  int? id;
-  String? iso;
-  String? teacherName;
-  String? nicename;
-  String? iso3;
-  int? numcode;
-  int? phonecode;
-  int? qualificationId;
-  String? qualificationTitle;
-  int? professionalEducationId;
-  String? name;
-  int? specializationId;
+  int districtId;
+  String districtName;
+  int provinceId;
+  String provinceName;
+  String shortName;
+  int country;
+  int id;
+  String iso;
+  String temperatureName;
+  String nicename;
+  String iso3;
+  int numcode;
+  int phonecode;
+  int qualificationId;
+  String qualificationTitle;
+  int professionalEducationId;
+  String name;
+  int specializationId;
 
   Teacher({
     required this.employeeId,
-    this.dutyTimeId,
+    required this.dutyTimeId,
     required this.empName,
-    this.fatherName,
-    this.husbandName,
+    required this.fatherName,
+    required this.husbandName,
     required this.cnicNumber,
-    this.gender,
-    this.bloodGroup,
-    this.bankId,
-    this.bankAddress,
-    this.salaryAccountNo,
-    this.designationOnJoining,
-    this.joiningPayScale,
-    this.currentPayScale,
-    this.categoryId,
-    this.designationId,
-    this.empStatusId,
-    this.joiningDate,
-    this.leavingDate,
-    this.birthDate,
-    this.birthPlace,
-    this.currentDistrict,
-    this.currentAddress,
-    this.currentPhone,
-    this.emailAddress,
-    this.permanentDistrict,
-    this.permanentAddress,
-    this.permanentPhone,
-    this.religionId,
-    this.maritalStatusId,
-    this.empImage,
-    this.fingerPrint,
-    this.domicileId,
-    this.empTypeId,
-    this.totalSalary,
-    this.allowance,
-    this.allowanceDetail,
-    this.dayWithOutPay,
-    this.amountWithOutPay,
-    this.security,
-    this.advSalaryDetail,
-    this.advSalaryAmount,
-    this.qualification,
-    this.professionalEducation,
-    this.specialization,
-    this.createdAt,
-    this.insertedByUserId,
-    this.updatedByUserId,
-    this.updatedAt,
-    this.religionName,
-    this.empDesignation,
-    this.empStatus,
-    this.empTypeTitle,
-    this.bankName,
-    this.dutyShiftId,
-    this.timeIn,
-    this.timeInend,
-    this.timeOutStart,
-    this.timeOut,
-    this.isActive,
-    this.dutyShift,
-    this.districtId,
-    this.districtName,
-    this.provinceId,
-    this.provinceName,
-    this.shortName,
-    this.country,
-    this.id,
-    this.iso,
-    this.teacherName,
-    this.nicename,
-    this.iso3,
-    this.numcode,
-    this.phonecode,
-    this.qualificationId,
-    this.qualificationTitle,
-    this.professionalEducationId,
-    this.name,
-    this.specializationId,
+    required this.gender,
+    required this.bloodGroup,
+    required this.bankId,
+    required this.bankAddress,
+    required this.salaryAccountNo,
+    required this.designationOnJoining,
+    required this.joiningPayScale,
+    required this.currentPayScale,
+    required this.categoryId,
+    required this.designationId,
+    required this.empStatusId,
+    required this.joiningDate,
+    required this.leavingDate,
+    required this.birthDate,
+    required this.birthPlace,
+    required this.currentDistrict,
+    required this.currentAddress,
+    required this.currentPhone,
+    required this.emailAddress,
+    required this.permanentDistrict,
+    required this.permanentAddress,
+    required this.permanentPhone,
+    required this.religionId,
+    required this.maritalStatusId,
+    required this.empImage,
+    required this.fingerPrint,
+    required this.domicileId,
+    required this.empTypeId,
+    required this.totalSalary,
+    required this.allowance,
+    required this.allowanceDetail,
+    required this.dayWithOutPay,
+    required this.amountWithOutPay,
+    required this.security,
+    required this.advSalaryDetail,
+    required this.advSalaryAmount,
+    required this.qualification,
+    required this.professionalEducation,
+    required this.specialization,
+    required this.createdAt,
+    required this.insertedByUserId,
+    required this.updatedByUserId,
+    required this.updatedAt,
+    required this.religionName,
+    required this.empDesignation,
+    required this.empStatus,
+    required this.empTypeTitle,
+    required this.bankName,
+    required this.dutyShiftId,
+    required this.timeIn,
+    required this.timeInend,
+    required this.timeOutStart,
+    required this.timeOut,
+    required this.isActive,
+    required this.dutyShift,
+    required this.districtId,
+    required this.districtName,
+    required this.provinceId,
+    required this.provinceName,
+    required this.shortName,
+    required this.country,
+    required this.id,
+    required this.iso,
+    required this.temperatureName,
+    required this.nicename,
+    required this.iso3,
+    required this.numcode,
+    required this.phonecode,
+    required this.qualificationId,
+    required this.qualificationTitle,
+    required this.professionalEducationId,
+    required this.name,
+    required this.specializationId,
   });
 
   factory Teacher.fromJson(Map<String, dynamic> json) => Teacher(
@@ -179,13 +179,9 @@ class Teacher {
         categoryId: json["CategoryID"],
         designationId: json["DesignationID"],
         empStatusId: json["EmpStatusID"],
-        joiningDate: json["JoiningDate"] == null
-            ? null
-            : DateTime.parse(json["JoiningDate"]),
+        joiningDate: DateTime.parse(json["JoiningDate"]),
         leavingDate: json["LeavingDate"],
-        birthDate: json["BirthDate"] == null
-            ? null
-            : DateTime.parse(json["BirthDate"]),
+        birthDate: DateTime.parse(json["BirthDate"]),
         birthPlace: json["BirthPlace"],
         currentDistrict: json["CurrentDistrict"],
         currentAddress: json["CurrentAddress"],
@@ -235,7 +231,7 @@ class Teacher {
         country: json["Country"],
         id: json["id"],
         iso: json["iso"],
-        teacherName: json["name"],
+        temperatureName: json["name"],
         nicename: json["nicename"],
         iso3: json["iso3"],
         numcode: json["numcode"],
@@ -266,10 +262,10 @@ class Teacher {
         "DesignationID": designationId,
         "EmpStatusID": empStatusId,
         "JoiningDate":
-            "${joiningDate!.year.toString().padLeft(4, '0')}-${joiningDate!.month.toString().padLeft(2, '0')}-${joiningDate!.day.toString().padLeft(2, '0')}",
+            "${joiningDate.year.toString().padLeft(4, '0')}-${joiningDate.month.toString().padLeft(2, '0')}-${joiningDate.day.toString().padLeft(2, '0')}",
         "LeavingDate": leavingDate,
         "BirthDate":
-            "${birthDate!.year.toString().padLeft(4, '0')}-${birthDate!.month.toString().padLeft(2, '0')}-${birthDate!.day.toString().padLeft(2, '0')}",
+            "${birthDate.year.toString().padLeft(4, '0')}-${birthDate.month.toString().padLeft(2, '0')}-${birthDate.day.toString().padLeft(2, '0')}",
         "BirthPlace": birthPlace,
         "CurrentDistrict": currentDistrict,
         "CurrentAddress": currentAddress,
@@ -319,7 +315,7 @@ class Teacher {
         "Country": country,
         "id": id,
         "iso": iso,
-        "name": teacherName,
+        "name": temperatureName,
         "nicename": nicename,
         "iso3": iso3,
         "numcode": numcode,
