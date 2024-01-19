@@ -18,6 +18,7 @@ class ParentSchoolDashboard extends StatefulWidget {
 class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
   final SchoolController _schoolController = Get.put(SchoolController());
 
+
   @override
   Widget build(BuildContext context) {
     final dynamic args = Get.arguments;
@@ -74,6 +75,7 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
           ),
         ),
         actions: [
+
           IconButton(
             icon: const Icon(Icons.swap_horizontal_circle_sharp),
             onPressed: () async {
@@ -82,7 +84,7 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
               await prefs.remove('teacherId');
               Get.back();
             },
-          )
+          ),
         ],
         bottom: PreferredSize(
           preferredSize: Get.size * 0.03,

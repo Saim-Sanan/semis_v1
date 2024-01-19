@@ -4,6 +4,7 @@ import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/child/screens/child_home.dart';
 import 'package:semis/features/child/screens/child_profile.dart';
 import 'package:semis/features/child/screens/child_settings.dart';
+import 'package:semis/features/notification/controller/notification_controller.dart';
 import 'package:semis/models/child_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +17,24 @@ class ChildDashboard extends StatefulWidget {
 
 class _SchoolDashboardState extends State<ChildDashboard> {
   int _pageIndex = 1;
+
+  final NotificationController _notificationController =
+      Get.put(NotificationController());
+
+
+  @override
+  void initState() {
+    super.initState();
+    loadNotification();
+  }
+
+  void loadNotification() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String schoolUrl = sharedPreferences.getString("schoolUrl")!;
+    String stdID = sharedPreferences.getString("stdID")!;
+    await _notificationController.getParentNotification(schoolUrl, stdID);
+    _notificationController.isLoading.value = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +59,8 @@ class _SchoolDashboardState extends State<ChildDashboard> {
                   errorBuilder: (context, error, stackTrace) {
                     // If the image loading fails, display the default image
                     return Image.asset(
-                      'assets/images/image.jpg', // Replace with the path to your default image
+                      'assets/images/image.jpg',
+                      // Replace with the path to your default image
                       width: 50,
                       height: 50,
                       fit: BoxFit.scaleDown,
@@ -70,6 +90,24 @@ class _SchoolDashboardState extends State<ChildDashboard> {
           ),
         ),
         actions: [
+          Container(
+            alignment: Alignment.center,
+            child: GestureDetector(
+              onTap: () {
+                Get.toNamed('/parent_notification', arguments: {
+                  'notification_controller': _notificationController
+                });
+              },
+              child: const Badge(
+                // isLabelVisible: int.parse(unreadNotificationsCount) > 0,
+                label: Text("3"),
+                alignment: Alignment.topRight,
+                child: Icon(
+                  Icons.notifications_none,
+                ),
+              ),
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.child_care),
             onPressed: () async {

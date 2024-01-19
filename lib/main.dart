@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/auth/screens/login_screen.dart';
 import 'package:semis/features/child/screens/child_dashboard.dart';
+import 'package:semis/features/notification/screens/parent_notification_screen.dart';
 import 'package:semis/features/school/screens/parent_school_dashboard.dart';
 import 'package:semis/features/school/screens/select_school.dart';
 import 'package:semis/features/school/screens/teacher_school_dashboard.dart';
@@ -14,6 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final isLoggedIn = prefs.getBool('isLoggedIn');
+
   if (isLoggedIn == true) {
     runApp(const MyApp(isLoggedIn: true));
   } else {
@@ -23,6 +25,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final bool isLoggedIn;
+
   const MyApp({Key? key, this.isLoggedIn = false}) : super(key: key);
 
   @override
@@ -49,6 +52,9 @@ class MyApp extends StatelessWidget {
             name: '/teacher-school-dashboard',
             page: () => const TeacherSchoolDashboard()),
         GetPage(name: '/child-dashboard', page: () => const ChildDashboard()),
+        GetPage(
+            name: '/parent_notification',
+            page: () => const ParentNotificationScreen()),
       ],
     );
   }
