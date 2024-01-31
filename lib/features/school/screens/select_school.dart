@@ -247,7 +247,7 @@ class _SelectSchoolState extends State<SelectSchool> {
 
   void navigateToSchool(dynamic school, String cnic) async {
     try {
-      if (school.accessType == "3") {
+      if (school.accessType == 3) {
         final loginType = await showAccessTypeDialog(Get.context!);
 
         if (loginType != null) {
@@ -257,9 +257,9 @@ class _SelectSchoolState extends State<SelectSchool> {
             loginAsTeacher(school, cnic);
           }
         } else {}
-      } else if (school.accessType == "1") {
+      } else if (school.accessType == 1) {
         loginAsParent(school, cnic);
-      } else if (school.accessType == "2") {
+      } else if (school.accessType == 2) {
         loginAsTeacher(school, cnic);
       }
     } catch (e) {

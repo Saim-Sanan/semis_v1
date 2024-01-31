@@ -13,6 +13,7 @@ class SchoolController extends GetxController {
       String cnic, String password, String schoolUrl) async {
     try {
       isLoading.value = true;
+
       final loginResponse = await http.post(
         Uri.parse(
             "${schoolUrl}login?email=$cnic&password=$password&device_name=phone"),
@@ -40,19 +41,19 @@ class SchoolController extends GetxController {
 
             return Children(childCount: childCount, children: children);
           } else {
-            Get.snackbar("Error", 'Invalid API response');
+            Get.snackbar("Error11", 'Invalid API response');
             return null;
           }
         } else {
-          Get.snackbar("Error", userResponse.reasonPhrase.toString());
+          Get.snackbar("Error10", userResponse.reasonPhrase.toString());
           return null;
         }
       } else {
-        Get.snackbar("Error", loginResponse.reasonPhrase.toString());
+        Get.snackbar("Error9", loginResponse.reasonPhrase.toString());
         return null;
       }
     } catch (e) {
-      Get.snackbar("Error", e.toString());
+      Get.snackbar("Error8", e.toString());
       return null;
     }
   }

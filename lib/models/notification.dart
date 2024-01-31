@@ -1,6 +1,6 @@
 class ParentNotification {
-  String? stdID;
-  String? nID;
+  int? stdID;
+  int? nID;
   String? noticeTitle;
   String? noticeDescription;
   String? issueDate;

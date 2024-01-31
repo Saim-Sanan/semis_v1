@@ -42,11 +42,13 @@ class ChildHome extends StatelessWidget {
                 );
               },
             ),
-            // FeatureBlock(
-            //   icon: Icons.date_range_outlined,
-            //   title: 'TimeTable',
-            //   onTap: () {},
-            // ),
+            FeatureBlock(
+              icon: Icons.notifications_none,
+              title: 'Notifications',
+              onTap: () {
+                Get.toNamed('/parent_notification');
+              },
+            ),
             // FeatureBlock(
             //   icon: Icons.chat,
             //   title: 'Chats',

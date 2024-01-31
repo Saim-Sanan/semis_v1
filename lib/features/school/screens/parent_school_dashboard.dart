@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:semis/constants/animated_loader.dart';
 import 'package:semis/constants/pallete.dart';
+import 'package:semis/features/notification/controller/notification_controller.dart';
 import 'package:semis/features/school/controllers/school_controller.dart';
 import 'package:semis/models/school_model.dart';
 import 'package:semis/models/child_list.dart';
@@ -17,7 +18,14 @@ class ParentSchoolDashboard extends StatefulWidget {
 
 class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
   final SchoolController _schoolController = Get.put(SchoolController());
+  final NotificationController _notificationController =
+      Get.put(NotificationController());
 
+  Future<void> loadNotification(String stdID) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String schoolUrl = sharedPreferences.getString("schoolUrl")!;
+    await _notificationController.getParentNotification(schoolUrl, stdID);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +65,7 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
           ),
         ),
         title: Text(
-          '${school.schoolName}',
+          school.schoolName,
           style: const TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
@@ -75,13 +83,13 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
           ),
         ),
         actions: [
-
           IconButton(
             icon: const Icon(Icons.swap_horizontal_circle_sharp),
             onPressed: () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.remove('schoolUrl');
-              await prefs.remove('teacherId');
+              await prefs
+                  .remove('teacherId'); //todo: why we removing teacherId here
               Get.back();
             },
           ),
@@ -168,6 +176,10 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
                                   'stdID', children.children[index].stdId);
                               await prefs.setString('classCode',
                                   children.children[index].classCode);
+
+                              loadNotification(
+                                  children.children[index].stdId);
+
                               Get.to(() => const ChildDashboard(), arguments: {
                                 'child': children.children[index],
                               });

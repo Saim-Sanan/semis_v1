@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:semis/constants/pallete.dart';
-import 'package:semis/models/notification.dart' ;
-
+import 'package:semis/models/notification.dart';
 
 class NotificationTile extends StatelessWidget {
-  const NotificationTile({Key? key, required this.notification}) : super(key: key);
+  const NotificationTile({Key? key, required this.notification})
+      : super(key: key);
 
-  final  ParentNotification notification;
+  final ParentNotification notification;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +17,7 @@ class NotificationTile extends StatelessWidget {
         // bottom: Get.height * 0.009,
       ),
       child: ClipRRect(
-        borderRadius:
-        BorderRadius.circular(Get.height * 0.015),
+        borderRadius: BorderRadius.circular(Get.height * 0.015),
         child: Container(
           height: Get.height * 0.13,
           padding: EdgeInsets.only(
@@ -33,7 +31,9 @@ class NotificationTile extends StatelessWidget {
                 width: 5,
               ),
             ),
-            color: Pallete.blueColor.withOpacity(0.08),
+            color: isInToday(notification.issueDate!)
+                ? Pallete.blueColor.withOpacity(0.08)
+                : Pallete.blueColor.withOpacity(0.03),
           ),
           child: Row(
             children: [
@@ -50,8 +50,7 @@ class NotificationTile extends StatelessWidget {
                     height: Get.height * 0.01,
                   ),
                   Text(
-                    dateFormater(
-                        notification.issueDate!),
+                    dateFormater(notification.issueDate!),
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
@@ -60,18 +59,15 @@ class NotificationTile extends StatelessWidget {
                 ],
               ),
               Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: Get.height * 0.02),
+                margin: EdgeInsets.symmetric(horizontal: Get.height * 0.02),
                 height: Get.height * 0.13,
                 width: 1,
                 color: Colors.grey.withOpacity(0.4),
               ),
               Expanded(
                 child: Column(
-                  mainAxisAlignment:
-                  MainAxisAlignment.center,
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       notification.noticeTitle!,
@@ -85,11 +81,9 @@ class NotificationTile extends StatelessWidget {
                       height: Get.height * 0.01,
                     ),
                     Text(
-                      notification
-                          .noticeDescription!,
+                      notification.noticeDescription!,
                       style: TextStyle(
-                          fontSize: Get.height * 0.02,
-                          color: Colors.black54),
+                          fontSize: Get.height * 0.02, color: Colors.black54),
                       softWrap: true,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
@@ -102,6 +96,15 @@ class NotificationTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool isInToday(String dateString) {
+    DateTime dateTime = DateTime.parse(dateString);
+    DateTime today = DateTime.now();
+
+    return dateTime.year == today.year &&
+        dateTime.month == today.month &&
+        dateTime.day == today.day;
   }
 
   String dateFormater(String dateString) {

@@ -14,7 +14,6 @@ class NotificationController extends GetxController {
   List<ParentNotification> olderNotifications =
       []; // contains older notification except this weeks
 
-
   Future<void> getParentNotification(String schoolUrl, String stdID) async {
     try {
       isLoading.value = true;
@@ -34,60 +33,20 @@ class NotificationController extends GetxController {
           notifications = notificationsResponse;
           classifyNotification(notifications);
         } else {
-          Get.snackbar("Error", 'Invalid API response');
+          Get.snackbar("Error14", 'Invalid API response');
           return;
         }
       } else {
-        Get.snackbar("Error", dataResponse.reasonPhrase.toString());
+        Get.snackbar("Error13", dataResponse.reasonPhrase.toString());
         return;
       }
     } catch (e) {
-      Get.snackbar("Error", e.toString());
+      Get.snackbar("Error12", e.toString());
       return;
+    } finally {
+      isLoading.value = false;
     }
   }
-
-  //---------------------------------------not working code--------------
-
-  // List<String> nIdList = []; //read notification nID List
-
-  // void markAllAsRead() async {
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //
-  //   notifications.forEach((notification) {
-  //     if (!nIdList.contains(notification.nID)) {
-  //       nIdList.add(notification.nID!);
-  //     }
-  //   });
-  //
-  //   sharedPreferences.setStringList("nIDList", nIdList);
-  // }
-  //
-  // Future<void> loadReadNotifications() async {
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   nIdList = sharedPreferences.getStringList("nIDList") ?? [];
-  //   print(nIdList.length);
-  // }
-  //
-  // String getUnreadNotificationCount() {
-  //   if (nIdList.isEmpty) {
-  //     print("nId is Empty");
-  //     return "${notifications.length}";
-  //   } else {
-  //     int unreadNotification = 0;
-  //
-  //     notifications.forEach((notification) {
-  //       if (!nIdList.contains(notification.nID)){
-  //         unreadNotification++;
-  //       }
-  //     });
-  //
-  //     print(unreadNotification);
-  //     return "$unreadNotification";
-  //   }
-  // }
-
-  //---------------------------------------------------------------------
 
   void classifyNotification(List<ParentNotification> notifications) {
     // it classifies the notifications based on time
@@ -115,8 +74,6 @@ class NotificationController extends GetxController {
           dateTime.isBefore(endOfWeek) &&
           !isInToday(dateString);
     }
-
-
 
     for (int i = 0; i < notifications.length; i++) {
       if (isInToday(notifications[i].issueDate!)) {
