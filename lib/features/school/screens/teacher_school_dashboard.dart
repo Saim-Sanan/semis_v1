@@ -139,6 +139,7 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                           ),
                           //todo: to be changed to actual subject
                           subtitle: const Text("Subject"),
+                          //todo: why used two gestureDetectors here?
                           trailing: GestureDetector(
                             onTap: () {},
                             child: GestureDetector(
@@ -164,8 +165,8 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: Get.height * 0.015,
                       ),
                       Card(
                         elevation: 2,
@@ -188,11 +189,12 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 30,
+                      SizedBox(
+                        height: Get.height * 0.025,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Get.height * 0.03),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -222,8 +224,8 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: Get.height * 0.01,
                       ),
                       Card(
                         elevation: 2,
@@ -234,7 +236,7 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                           bottom: Get.height * 0.015,
                         ),
                         child: Container(
-                          height: Get.height * 0.5,
+                          height: Get.height * 0.45,
                           // margin: EdgeInsets.only(
                           //     bottom: 0.0,
                           //     left: Get.height * 0.03,
@@ -246,7 +248,7 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                           child: GridView.count(
                             scrollDirection: Axis.horizontal,
                             physics: const BouncingScrollPhysics(),
-                            crossAxisCount: 3,
+                            crossAxisCount: 2,
                             children: [
                               FeatureBlock(
                                 icon: Icons.done_outline,
@@ -258,9 +260,12 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                                 },
                               ),
                               FeatureBlock(
-                                icon: Icons.book,
-                                title: 'Diary',
-                                onTap: () {},
+                                icon: Icons.money,
+                                title: 'Salary',
+                                onTap: () {
+                                  Get.toNamed('/employee_salary',
+                                      arguments: {'teacher': teacher, 'schoolUrl': school.appApi});
+                                },
                               ),
                               FeatureBlock(
                                 icon: Icons.time_to_leave_outlined,

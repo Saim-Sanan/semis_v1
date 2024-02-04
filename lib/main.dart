@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/auth/screens/login_screen.dart';
 import 'package:semis/features/child/screens/child_dashboard.dart';
+import 'package:semis/features/hostel/hostel_details_screen.dart';
 import 'package:semis/features/notification/screens/parent_notification_screen.dart';
+import 'package:semis/features/salary/screens/teacher_salary_screen.dart';
 import 'package:semis/features/school/screens/parent_school_dashboard.dart';
 import 'package:semis/features/school/screens/select_school.dart';
 import 'package:semis/features/school/screens/teacher_school_dashboard.dart';
@@ -38,6 +40,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         primaryColor: Pallete.blueColor,
+        appBarTheme: AppBarTheme(
+          iconTheme: const IconThemeData(color: Colors.white),
+          actionsIconTheme: const IconThemeData(color: Colors.white),
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: Get.height * 0.03,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: isLoggedIn ? '/splash' : '/login',
@@ -55,6 +70,9 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/parent_notification',
             page: () => const ParentNotificationScreen()),
+        GetPage(name: '/employee_salary', page: () => const TeacherSalaryScreen()),
+        GetPage(
+            name: "/hostel_details_screen", page: () => const HostelDetailsScreen()),
       ],
     );
   }

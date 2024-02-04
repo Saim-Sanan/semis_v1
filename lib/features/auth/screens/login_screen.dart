@@ -31,120 +31,120 @@ class _LoginScreenState extends State<LoginScreen> {
           () => _authController.isLoading.value
               ? const AnimatedLoader()
               : SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: Get.width,
-                        height: Get.height * 0.5,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: SizedBox(
-                              height: 350,
-                              width: 350,
-                              child: Lottie.asset(
-                                'assets/animations/login.json',
-                                repeat: true,
-                                reverse: true,
-                              ),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: Get.width,
+                      height: Get.height * 0.5,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: SizedBox(
+                            height: 350,
+                            width: 350,
+                            child: Lottie.asset(
+                              'assets/animations/login.json',
+                              repeat: true,
+                              reverse: true,
                             ),
                           ),
                         ),
                       ),
-                      Container(
-                        height: Get.height * 0.5,
-                        width: Get.width,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            topRight: Radius.circular(40),
-                          ),
+                    ),
+                    Container(
+                      height: Get.height * 0.5,
+                      width: Get.width,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
                         ),
-                        child: Form(
-                          key: _formKey,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 30.0),
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 30,
+                      ),
+                      child: Form(
+                        key: _formKey,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: Get.height * 0.02,
+                              ),
+                              Text(
+                                "SEMIS - School Education Management Information System",
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.roboto(
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.w700,
+                                  color: Pallete.blueColor,
                                 ),
-                                Text(
-                                  "SEMIS - School Education Management Information System",
+                              ),
+                              SizedBox(
+                                height: Get.height * 0.01,
+                              ),
+                              Opacity(
+                                opacity: 0.6,
+                                child: Text(
+                                  "semis Serves You Virtual Education At Your Home",
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.roboto(
-                                    fontSize: 23,
-                                    fontWeight: FontWeight.w700,
-                                    color: Pallete.blueColor,
+                                    fontSize: 18,
+                                    color: Pallete.blackColor,
+                                    wordSpacing: 3,
+                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                              ),
+                              SizedBox(
+                                height: Get.height * 0.05,
+                              ),
+                              TextFormField(
+                                controller:
+                                    _cnicController, // CNIC Input Field
+                                decoration: const InputDecoration(
+                                  hintText: "CNIC",
+                                  prefixIcon: Icon(Icons.credit_card),
+                                  border: OutlineInputBorder(),
                                 ),
-                                Opacity(
-                                  opacity: 0.6,
-                                  child: Text(
-                                    "semis Serves You Virtual Education At Your Home",
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 18,
-                                      color: Pallete.blackColor,
-                                      wordSpacing: 3,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter your CNIC';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: Get.height * 0.015,
+                              ),
+                              ElevatedButton(
+                                onPressed: () => _handleLogin(),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Pallete.blueColor,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                  minimumSize: Size(Get.width, 50),
+                                ),
+                                child: const Text(
+                                  "Log In",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    wordSpacing: 2,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 50,
-                                ),
-                                TextFormField(
-                                  controller:
-                                      _cnicController, // CNIC Input Field
-                                  decoration: const InputDecoration(
-                                    hintText: "CNIC",
-                                    prefixIcon: Icon(Icons.credit_card),
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter your CNIC';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                ElevatedButton(
-                                  onPressed: () => _handleLogin(),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Pallete.blueColor,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    minimumSize: Size(Get.width, 50),
-                                  ),
-                                  child: const Text(
-                                    "Log In",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400,
-                                      wordSpacing: 2,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+              ),
         ),
       ),
     );
