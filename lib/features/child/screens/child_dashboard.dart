@@ -9,6 +9,7 @@ import 'package:semis/features/notification/controller/notification_controller.d
 import 'package:semis/features/notification/screens/new_notification_screen.dart';
 import 'package:semis/models/child_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:badges/badges.dart';
 
 class ChildDashboard extends StatefulWidget {
   const ChildDashboard({Key? key}) : super(key: key);
@@ -81,10 +82,10 @@ class _SchoolDashboardState extends State<ChildDashboard> {
               alignment: Alignment.center,
               child: GestureDetector(
                 onTap: () {
-                  Get.to(()=> const NewNotificationScreen());
+                  Get.to(() => const NewNotificationScreen());
                 },
                 child: Badge(
-                  isLabelVisible:
+                  showBadge:
                       _notificationController.todayNotifications.isNotEmpty,
                   child: const Icon(
                     Icons.notifications_none,

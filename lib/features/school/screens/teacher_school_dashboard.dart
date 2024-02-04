@@ -112,7 +112,7 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                           leading: CircleAvatar(
                             backgroundColor: Colors.white,
                             child: Image.network(
-                              '${school.appApi!.replaceFirst("/api/", "/")}/${teacher.empImage}',
+                              '${school.appApi.replaceFirst("/api/", "/")}/${teacher.empImage}',
                               width: 50,
                               height: 50,
                               fit: BoxFit.scaleDown,
