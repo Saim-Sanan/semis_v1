@@ -66,11 +66,14 @@ class SchoolController extends GetxController {
             "${schoolUrl}login?email=$cnic&password=$password&device_name=phone"),
       );
 
-      if (loginResponse.statusCode == 200) {
+
+      //todo: change to bearer and remove OR condition when the api starts working with 1730171966215
+      if (loginResponse.statusCode == 200 || true) {
         final bearerToken = loginResponse.body;
 
+
         var headers = {
-          'Authorization': 'Bearer $bearerToken',
+          'Authorization': 'Bearer 548|R1bVbuk7o5JFgQhrNWbELHWZa6Wy9UP4XdHZEp1Dff437e3c',
         };
 
         var userResponse = await http.get(

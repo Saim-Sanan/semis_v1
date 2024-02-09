@@ -21,7 +21,7 @@ class ChildHome extends StatelessWidget {
           children: [
             FeatureBlock(
               icon: Icons.done_outline,
-              title: 'Attendence',
+              title: 'Attendance',
               onTap: () {
                 Get.to(
                   () => const StudentAttendanceScreen(),
@@ -49,11 +49,13 @@ class ChildHome extends StatelessWidget {
                 Get.toNamed('/parent_notification');
               },
             ),
-            // FeatureBlock(
-            //   icon: Icons.chat,
-            //   title: 'Chats',
-            //   onTap: () {},
-            // ),
+            FeatureBlock(
+              icon: Icons.bedroom_child_outlined,
+              title: 'Hostel',
+              onTap: () {
+                Get.toNamed('hostel_details_screen', arguments: {'stdID': child.stdId});
+              },
+            ),
             // FeatureBlock(
             //   icon: Icons.directions_walk,
             //   title: 'Leave',

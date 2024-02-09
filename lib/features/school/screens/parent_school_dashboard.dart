@@ -89,7 +89,8 @@ class _ParentSchoolDashboardState extends State<ParentSchoolDashboard> {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.remove('schoolUrl');
               await prefs
-                  .remove('teacherId'); //todo: why we removing teacherId here
+                  .remove('teacherId');
+              //todo: why we removing teacherId here
               Get.back();
             },
           ),

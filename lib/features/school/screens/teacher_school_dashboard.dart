@@ -60,7 +60,7 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
           ),
         ),
         title: Text(
-          '${school.schoolName}',
+          school.schoolName,
           style: const TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
@@ -139,7 +139,7 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                           ),
                           //todo: to be changed to actual subject
                           subtitle: const Text("Subject"),
-                          //todo: why used two gestureDetectors here?
+                          //todo: why used two gestureDetectors  here?
                           trailing: GestureDetector(
                             onTap: () {},
                             child: GestureDetector(
@@ -263,8 +263,10 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                                 icon: Icons.money,
                                 title: 'Salary',
                                 onTap: () {
-                                  Get.toNamed('/employee_salary',
-                                      arguments: {'teacher': teacher, 'schoolUrl': school.appApi});
+                                  Get.toNamed('/SalaryDashboardScreen', arguments: {
+                                    'teacher': teacher,
+                                    'schoolUrl': school.appApi
+                                  });
                                 },
                               ),
                               FeatureBlock(
@@ -276,11 +278,7 @@ class _TeacherSchoolDashboardState extends State<TeacherSchoolDashboard> {
                                   );
                                 },
                               ),
-                              FeatureBlock(
-                                icon: Icons.date_range_outlined,
-                                title: 'TimeTable',
-                                onTap: () {},
-                              ),
+
                               FeatureBlock(
                                 icon: Icons.chat,
                                 title: 'Chats',

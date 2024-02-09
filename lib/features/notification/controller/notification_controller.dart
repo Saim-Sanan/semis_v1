@@ -18,6 +18,7 @@ class NotificationController extends GetxController {
     try {
       isLoading.value = true;
       final dataResponse = await http.get(
+        //todo: we have to make this url dynamic
         Uri.parse(
             "https://semis.imdigisol.com/api/noticePerStudent?stdID=15600"),
       );

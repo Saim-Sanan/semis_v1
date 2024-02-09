@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:semis/constants/pallete.dart';
 import 'package:semis/features/auth/screens/login_screen.dart';
 import 'package:semis/features/child/screens/child_dashboard.dart';
-import 'package:semis/features/hostel/hostel_details_screen.dart';
+import 'package:semis/features/hostel/screens/hostel_details_screen.dart';
 import 'package:semis/features/notification/screens/parent_notification_screen.dart';
-import 'package:semis/features/salary/screens/teacher_salary_screen.dart';
+import 'package:semis/features/salary/screens/employee_loan_screen.dart';
+import 'package:semis/features/salary/screens/salary_dashboard_screen.dart';
+import 'package:semis/features/salary/screens/salary_slips_screen.dart';
+import 'package:semis/features/salary/screens/employee_salary_screen.dart';
 import 'package:semis/features/school/screens/parent_school_dashboard.dart';
 import 'package:semis/features/school/screens/select_school.dart';
 import 'package:semis/features/school/screens/teacher_school_dashboard.dart';
@@ -70,9 +73,18 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/parent_notification',
             page: () => const ParentNotificationScreen()),
-        GetPage(name: '/employee_salary', page: () => const TeacherSalaryScreen()),
         GetPage(
-            name: "/hostel_details_screen", page: () => const HostelDetailsScreen()),
+            name: '/employee_salary', page: () => const EmployeeSalaryScreen()),
+        GetPage(
+            name: "/hostel_details_screen",
+            page: () => const HostelDetailsScreen()),
+        GetPage(
+            name: "/salary_slips_screen",
+            page: () => const SalarySlipsScreen()),
+        GetPage(
+            name: "/SalaryDashboardScreen",
+            page: () => const SalaryDashboardScreen()),
+        GetPage(name: "/employeeLoanScreen", page: () => EmployeeLoanScreen()),
       ],
     );
   }

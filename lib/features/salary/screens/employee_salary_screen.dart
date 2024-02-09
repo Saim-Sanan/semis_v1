@@ -7,14 +7,14 @@ import 'package:semis/features/salary/controller/salary_controller.dart';
 import 'package:semis/models/employee_salary.dart';
 import 'package:semis/models/teacher.dart';
 
-class TeacherSalaryScreen extends StatefulWidget {
-  const TeacherSalaryScreen({Key? key}) : super(key: key);
+class EmployeeSalaryScreen extends StatefulWidget {
+  const EmployeeSalaryScreen({Key? key}) : super(key: key);
 
   @override
-  State<TeacherSalaryScreen> createState() => _TeacherSalaryScreenState();
+  State<EmployeeSalaryScreen> createState() => _EmployeeSalaryScreenState();
 }
 
-class _TeacherSalaryScreenState extends State<TeacherSalaryScreen> {
+class _EmployeeSalaryScreenState extends State<EmployeeSalaryScreen> {
   final SalaryController _salaryController = Get.put(SalaryController());
   final dynamic args = Get.arguments;
 
@@ -102,53 +102,49 @@ class _TeacherSalaryScreenState extends State<TeacherSalaryScreen> {
                       thickness: 0.55,
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: Get.height * 0.01),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          DetailTile(
-                            title: "Designation",
-                            icon: Icons.person_pin_rounded,
-                            subtitle: "${employeeSalary!.empDesignation}",
-                          ),
-                          DetailTile(
-                            title: "Account Code",
-                            icon: Icons.sticky_note_2,
-                            subtitle:
-                                "${employeeSalary!.incomeHeads![0].accountCode}",
-                          ),
-                          DetailTile(
-                            title: "Account Name",
-                            icon: Icons.account_box,
-                            subtitle:
-                                "${employeeSalary!.incomeHeads![0].accountName}",
-                          ),
-                          DetailTile(
-                            title: "Total Income",
-                            icon: Icons.attach_money,
-                            subtitle: "${employeeSalary!.totalIncome}",
-                          ),
-                          DetailTile(
-                            title: "Rate",
-                            icon: Icons.account_balance_wallet_rounded,
-                            subtitle: "${employeeSalary!.incomeHeads![0].rate}",
-                          ),
-                          DetailTile(
-                            title: "Status",
-                            icon: Icons.person,
-                            subtitle:
-                                "${employeeSalary!.incomeHeads![0].status}",
-                          ),
-                          DetailTile(
-                            title: "Net Amount",
-                            icon: Icons.currency_exchange,
-                            subtitle: "${employeeSalary!.netAmount}",
-                          ),
-                        ],
-                      ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: Get.height * 0.01),
+                    child: Column(
+                      children: [
+                        DetailTile(
+                          title: "Designation",
+                          icon: Icons.person_pin_rounded,
+                          subtitle: "${employeeSalary!.empDesignation}",
+                        ),
+                        DetailTile(
+                          title: "Account Code",
+                          icon: Icons.sticky_note_2,
+                          subtitle:
+                              "${employeeSalary!.incomeHeads![0].accountCode}",
+                        ),
+                        DetailTile(
+                          title: "Account Name",
+                          icon: Icons.account_box,
+                          subtitle:
+                              "${employeeSalary!.incomeHeads![0].accountName}",
+                        ),
+                        DetailTile(
+                          title: "Total Income",
+                          icon: Icons.attach_money,
+                          subtitle: "${employeeSalary!.totalIncome}",
+                        ),
+                        DetailTile(
+                          title: "Rate",
+                          icon: Icons.account_balance_wallet_rounded,
+                          subtitle: "${employeeSalary!.incomeHeads![0].rate}",
+                        ),
+                        DetailTile(
+                          title: "Status",
+                          icon: Icons.person,
+                          subtitle: "${employeeSalary!.incomeHeads![0].status}",
+                        ),
+                        DetailTile(
+                          title: "Net Amount",
+                          icon: Icons.currency_exchange,
+                          subtitle: "${employeeSalary!.netAmount}",
+                        ),
+                      ],
                     ),
                   ),
                 ],
